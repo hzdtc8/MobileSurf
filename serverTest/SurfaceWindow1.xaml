@@ -1,0 +1,102 @@
+﻿<s:SurfaceWindow x:Class="serverTest.SurfaceWindow1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="http://schemas.microsoft.com/surface/2008"
+             
+    Title="serverTest" Loaded="SurfaceWindow_Loaded">
+    <Grid>
+
+
+        <Grid Background="#FF1F2790">
+        
+            <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="430"></ColumnDefinition>
+            <ColumnDefinition Width="530"></ColumnDefinition>
+            <ColumnDefinition Width="530"></ColumnDefinition>
+            <ColumnDefinition Width="430"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="260"></RowDefinition>
+            <RowDefinition Height="560"></RowDefinition>
+            <RowDefinition Height="360 "></RowDefinition>
+        </Grid.RowDefinitions>
+
+        
+            <Grid x:Name="myControl" Visibility="Visible" Height="1180" Grid.RowSpan="3" Grid.ColumnSpan="4" Margin="0,0,6,0" Width="1914">
+                <s:TagVisualizer Name="helloTag">
+                    <s:TagVisualizer.Definitions>
+                        <s:TagVisualizationDefinition Value="05"
+                     Source="ToolTips.xaml"
+                     UsesTagOrientation="True"
+                     TagRemovedBehavior="Fade"
+                     PhysicalCenterOffsetFromTag="1,5"/>
+                    </s:TagVisualizer.Definitions>
+                </s:TagVisualizer>
+            </Grid>
+  
+        <Grid Grid.Row="1" Grid.Column="1">
+
+                <Border BorderBrush="#FFE5D517" BorderThickness="2">
+            <StackPanel>
+                <Label Height="187"></Label>
+                    <Border BorderThickness="1" BorderBrush="Black">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <Label Content="Username"></Label>
+                    <s:SurfaceTextBox Width="360"></s:SurfaceTextBox>
+                </StackPanel>
+                    </Border >
+                    <Border BorderThickness="1" BorderBrush="Black">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <Label Content="Password "></Label>
+                    <s:SurfacePasswordBox Width="360"></s:SurfacePasswordBox>
+                </StackPanel>
+                    </Border>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <Label Width="320"></Label>
+                    <s:SurfaceButton Name="login" Content="Login" ></s:SurfaceButton>
+                    <s:SurfaceButton Name="forgot"  Content="Forgot Psw"></s:SurfaceButton>
+                    </StackPanel>
+
+
+            </StackPanel>
+                </Border>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="1">
+                
+                    <Border BorderBrush="#FFE5D517" BorderThickness="2">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Background="White">
+                </StackPanel>
+                <TextBlock Text="The Gurdian Life Insurance Company" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold"></TextBlock>
+                <s:SurfaceTextBox                     
+                        HorizontalAlignment="Left" 
+                        TextWrapping="Wrap" 
+                        VerticalAlignment="Top"                   
+                        Text="The Gurdian Life Insurance Company offers financial products and services. Among its products include life insurance, disability insurance, retirement programs, and health plans which have HMO, PPO, and dental and vision plans." 
+                    Padding="10" TextAlignment="Justify" IsReadOnly="True" Focusable="False" 
+                    IsTabStop="False" IsUndoEnabled="True" AllowDrop="False" Background="#FF173400" Foreground="White">
+                </s:SurfaceTextBox>
+
+                <TextBlock Text="Mission Statement" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"></TextBlock>
+                <s:SurfaceTextBox 
+                        
+                        HorizontalAlignment="Left" 
+                        TextWrapping="Wrap" 
+                        Name="tbTestBox" 
+                        VerticalAlignment="Top"
+                         Text="Our purpose is to enrich the lives of people we touch. By providing highest performing financial products and services that reduce risk and increase assets, we help individuals and employers fulfill their responsibilities and build better tomorrows. Our culture is based on an unwavering belief in integrity and fair dealings, treating our clients and each other with dignity and respect... We take prudent risks and work together to assure our success and profitability in the future... We work hard to enhance continuously our reputation for accessibility, professionalism, performance, and the depth and quality of our long-term consultative relationships with clients... We endeavor to be valued as an industry leader in client satisfaction, sales growth, product performance, financial strength and profitability."
+                        Padding="10" 
+                        TextAlignment="Justify" 
+                        IsReadOnly="True" Background="#FF071400" Foreground="White">
+                </s:SurfaceTextBox>
+            </StackPanel>
+            </Border>
+            
+        </Grid>
+
+
+    </Grid>
+        
+    </Grid>
+
+</s:SurfaceWindow>
