@@ -100,6 +100,7 @@ namespace serverControl
                 Command_Listening_Socket = server.Accept();
                 Debug.Write("Stop after the accept");
                 int msgLenght = Command_Listening_Socket.Receive(msgFromMobile);// receive the byte array from mobile, and store into msgFormMobile
+                
                 string msg = System.Text.Encoding.ASCII.GetString(msgFromMobile, 0, msgLenght);// convert into string type
                 msgArray = trim(msg);//msg formate should be "tagID"+" "+"Mode",
                 int Tag = Convert.ToInt32(msgArray[1]);// return the tagID in integer 

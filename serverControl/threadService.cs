@@ -43,7 +43,14 @@ namespace serverControl
 
             user = my_User;
         }
+        public string[] trim(string msg)
+        {
 
+            string[] Msg = msg.Split(';');
+
+            return Msg;
+
+        }
         public void userCommand(User user)
         {
             string data = null;
@@ -61,14 +68,16 @@ namespace serverControl
             {
                 i = user.command_Communication_Socket.Receive(bytes);
                 data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-                Currentmode = data;
-                Debug.WriteLine("receive status from client: " + Currentmode);
+
+                string[] myMsg = trim(data);
+                
+                Debug.WriteLine("receive status from client: " + myMsg[0]);
 
                 // if the current mode send from mobile is equal to crossDevice,
                 // we open three socket related crossDevice mode
                 // Change the user's status to the current mode
                 // start two threads 
-                if (Currentmode == "crossDevice")
+                if (myMsg[0] == "crossDevice")
                 {
 
                     user.interation_Receiving_Socket = user.interation_Receiving_Socket.Accept();//receiving the message about surfaceObjectSelected from the mobile

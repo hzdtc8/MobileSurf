@@ -65,6 +65,14 @@ namespace serverControl
         public string[] trim(string msg)
         {
 
+            string[] Msg = msg.Split(';');
+
+            return Msg;
+
+        }
+        public string[] trimSpace(string msg)
+        {
+
             string[] Msg = msg.Split(' ');
 
             return Msg;
@@ -88,12 +96,12 @@ namespace serverControl
                 Debug.WriteLine("object select from the userID {0}: {1}", user.UserID, data);
                 string[] msgArray = new string[3];
                 msgArray=trim(data);
-                if (msgArray[0] == "objectClicked")
+                if (msgArray[0] == "objectClick")
                 {
                     objectClickedEventArgs e = new objectClickedEventArgs();
                     //pass the tagID,Coordinate,last point, user into event args
                     e.TagID = Convert.ToInt32( msgArray[1]);
-                    e.Coordinate = msgArray[2]+" "+msgArray[3];
+                    e.Coordinate = msgArray[3];
                     e.CoordinateOfTabletopPointX = user.pointX;
                     e.CoordinateOfTabletopPointY = user.pointY;
                     e.user = user;
