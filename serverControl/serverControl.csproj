@@ -74,6 +74,7 @@
     <Compile Include="SendDataP.cs" />
     <Compile Include="SendMsg.cs" />
     <Compile Include="threadService.cs" />
+    <Compile Include="TranslationMsg.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>

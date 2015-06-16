@@ -101,11 +101,13 @@ namespace serverControl
                 Debug.Write("Stop after the accept");
                 int msgLenght = Command_Listening_Socket.Receive(msgFromMobile);// receive the byte array from mobile, and store into msgFormMobile
                 string msg = System.Text.Encoding.ASCII.GetString(msgFromMobile, 0, msgLenght);// convert into string type
-                msgArray = trim(msg);//msg formate should be "tagID"+" "+"Mode",
-                int Tag = Convert.ToInt32(msgArray[0]);// return the tagID in integer 
-                string mode = msgArray[1];// return the mode in string
-                Debug.WriteLine("mode:" + mode);
-                Debug.WriteLine("tagID:" + Tag);
+                //msgArray = trim(msg);//msg formate should be "tagID"+" "+"Mode",
+                //int Tag = Convert.ToInt32(msgArray[0]);// return the tagID in integer 
+                //string mode = msgArray[1];// return the mode in string
+                //Debug.WriteLine("mode:" + mode);
+                //Debug.WriteLine("tagID:" + Tag);
+                TranslationMsg trans = new TranslationMsg();
+                trans.TranslateMdg(msg);
 
 
                 // If mode is equal to "setup" under condition TagID is unique,
