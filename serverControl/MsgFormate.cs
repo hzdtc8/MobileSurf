@@ -15,16 +15,27 @@ namespace serverControl
             vibrate,
             success,
             failure,
-            end
+            end,
+            button,
+            editText,
+            drawing,
+            linearLayout
         };
 
-        //-----------Surface to mobile message formate-------------------------
 
+
+        //-----------Surface to mobile message formate-------------------------
         private static String Speech = "speech;{0};{1};{2}/>"; // Speech; TagID, Caption; Content
         private static String ViabrateMsg = "vibrate/>";//vibrate
         private static String Success = "success/>";
         private static String failure = "failure/>";
         private static String end = "end/>";
+        //------------surface to mobile interface message formate
+        private static String buttonMsg = "button;{0};{1};{2}/>"; //button;tagID;caption;content
+        private static String editTextMsg = "editText;{0};{1};{2}/>";//editText;tagID;caption;content
+        private static String drawingMsg = "drawing;{0};{1};{2}/>"; //drawomg;tagID;caption;content
+        private static String linearLayoutMsg = "linearLayout;{0};{1};{2}/>";//linearLayout;tagID;caption;content
+
 
         public String messageText { get; set; }
         public MsgTpye messageType {get;set; }
