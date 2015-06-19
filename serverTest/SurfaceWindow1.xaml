@@ -96,6 +96,12 @@
 
 
     </Grid>
+        <s:ScatterView Name="myScatter">
+            <s:ScatterViewItem Height="30" Width="200">
+                <s:SurfaceTextBox Name="myTextBox" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Stretch">asdasdaasddasdadasdasdadasdasdasdasdasdasdasasdasdasdasd</s:SurfaceTextBox>
+            </s:ScatterViewItem>
+            
+        </s:ScatterView>
         
     </Grid>
 

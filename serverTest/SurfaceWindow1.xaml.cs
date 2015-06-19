@@ -37,8 +37,9 @@ namespace serverTest
         ConvertIntoPhysicalDistance convertor;
         double loginWidth, loginHeight, forgetWidth, forgetHeight;
         TagVisualizationDefinition newDefinition;
-        ScatterView scatterView;
+
         SurfaceTextBox textbox;
+
 
         //User user;
         public SurfaceWindow1()
@@ -53,9 +54,11 @@ namespace serverTest
             newDefinition.TagRemovedBehavior = TagRemovedBehavior.Fade;
             newDefinition.PhysicalCenterOffsetFromTag = new Vector(1.0, 5.0);
 
-            scatterView = new ScatterView();
-            textbox = new SurfaceTextBox();
-            scatterView.Items.Add(textbox);
+            
+            
+
+            myScatter.Visibility = Visibility.Hidden;
+            
             
             
             
@@ -79,7 +82,16 @@ namespace serverTest
         }
         void ct_ItemSelected(object sender, itemSelectedEventArgs e)
         {
-            textbox.Text = e.centent;
+            
+
+            myScatter.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                    new Action(
+                        delegate()
+                        {
+                            myTextBox.Text = e.centent;
+                           myScatter.Visibility = Visibility.Visible;
+                        }
+                ));
         }
 
 
