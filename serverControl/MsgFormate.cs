@@ -19,7 +19,8 @@ namespace serverControl
             button,
             editText,
             drawing,
-            linearLayout
+            linearLayout,
+            dropdownList
         };
 
 
@@ -34,7 +35,8 @@ namespace serverControl
         private static String buttonMsg = "button;{0};{1};{2}/>"; //button;tagID;caption;content
         private static String editTextMsg = "editText;{0};{1};{2}/>";//editText;tagID;caption;content
         private static String drawingMsg = "drawing;{0};{1};{2}/>"; //drawomg;tagID;caption;content
-        private static String linearLayoutMsg = "linearLayout;{0};{1};{2}/>";//linearLayout;tagID;caption;content
+        private static String linearLayoutMsg = "linearLayout;{0};{1};{2}/>";//linearLayout;tagID;caption;content 
+        private static String dropdownList = "dropdownList;{0};{1};{2}/>";//dropdownList;tagID;caption;content 
 
 
         public String messageText { get; set; }
@@ -76,6 +78,14 @@ namespace serverControl
             msg.messageText = end;
             msg.messageType = MsgTpye.end;
             return msg;
+        }
+        public static MsgFormate newDropdownList()
+        {
+            MsgFormate msg = new MsgFormate();
+            msg.messageText = dropdownList;
+            msg.messageType = MsgTpye.dropdownList;
+            return msg;
+            
         }
 
 

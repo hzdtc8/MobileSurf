@@ -80,14 +80,16 @@ namespace serverTest
             double mobilePointXPhysical = convertors.ConvertDistanceFromPixelInMobile(mobilePointX);
             double mobilePointYPhysical = convertors.ConvertDistanceFromPixelInMobile(mobilePointY);
             User user = e.user;
-           
+           //bool ObjectSelectedOnAutoFill
+
+             
             bool ObjectSelected = compare.compareWith(LoginButtonTofet, LoginButtonToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, loginWidth, loginHeight);
             if (ObjectSelected&&user.OnSurface)
             {
                 serverControl.MsgFormate[] myMessage = {
                         serverControl.MsgFormate.newSpeech("login button clicked","Successful",user.UserID.ToString()),
                         serverControl.MsgFormate.newVibrate(),
-                        serverControl.MsgFormate.newSuccess(),
+                        serverControl.MsgFormate.newDropdownList(),
                         serverControl.MsgFormate.newEnd()
                                                        };
 
