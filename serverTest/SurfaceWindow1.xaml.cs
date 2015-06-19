@@ -54,17 +54,9 @@ namespace serverTest
             newDefinition.TagRemovedBehavior = TagRemovedBehavior.Fade;
             newDefinition.PhysicalCenterOffsetFromTag = new Vector(1.0, 5.0);
 
-            
-            
-
             myScatter.Visibility = Visibility.Hidden;
             
-            
-            
-            
-            
 
-            
             uc.ac = new AcceptClient();
             
 
