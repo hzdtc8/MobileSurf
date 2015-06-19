@@ -37,6 +37,7 @@ namespace serverControl
         private static String drawingMsg = "drawing;{0};{1};{2}/>"; //drawomg;tagID;caption;content
         private static String linearLayoutMsg = "linearLayout;{0};{1};{2}/>";//linearLayout;tagID;caption;content 
         private static String dropdownList = "dropdownList;{0};{1};{2}/>";//dropdownList;tagID;caption;content 
+        private static String Textbox = "textbox;{0};{1};{2}/>";//textbox;tagID;caption;content 
 
 
         public String messageText { get; set; }
