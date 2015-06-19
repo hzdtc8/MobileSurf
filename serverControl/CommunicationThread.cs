@@ -122,7 +122,10 @@ namespace serverControl
                     returnGestureEventArgs e = new returnGestureEventArgs();
                    // returnGesture(this, e);
                 }
-
+                if (msgArray[0] == "itemSelect")
+                {
+                    MessageBox.Show("ItemSelect");
+                }
 
             }
 
