@@ -64,6 +64,7 @@
     <Compile Include="AcceptClient.cs" />
     <Compile Include="CaptureScreen.cs" />
     <Compile Include="CommunicationThread.cs" />
+    <Compile Include="itemSelectedEventArgs.cs" />
     <Compile Include="Mode.cs" />
     <Compile Include="MsgFormate.cs" />
     <Compile Include="objectClickedEventArgs.cs" />

@@ -52,9 +52,12 @@ namespace serverTest
 
             
             uc.ac = new AcceptClient();
+            
+
             uc.ac.command = new threadService();
             uc.ac.command.communication = new CommunicationThread();
             uc.ac.command.communication.objectClicked += new CommunicationThread.myObjectClickedEventHandler(ct_objectClicked);
+            uc.ac.command.communication.ItemSelected+=new CommunicationThread.myItemSelectedEventHandler(ct_ItemSelected);
 
             myControl.Children.Add(uc);
             //helloTag.Definitions.Add(newDefinition);
@@ -63,6 +66,12 @@ namespace serverTest
 
             
         }
+        void ct_ItemSelected(object sender, itemSelectedEventArgs e)
+        {
+            MessageBox.Show(e.centent);
+        }
+
+
          void ct_objectClicked(object sender,objectClickedEventArgs e)
         {
             

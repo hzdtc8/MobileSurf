@@ -15,9 +15,12 @@ namespace serverControl
         User user;
         double x, y;
         public delegate void myObjectClickedEventHandler(object sender, objectClickedEventArgs e);
+        public delegate void myItemSelectedEventHandler(object sender,  itemSelectedEventArgs e);             
+           
         //public delegate void myReturnValueEventHandler(object sender, returnValueEventArgs e);
         //public delegate void myReturnGestureEventHandler(object sender, returnGestureEventArgs e);
         public event myObjectClickedEventHandler objectClicked;
+        public event myItemSelectedEventHandler ItemSelected;
         //public event myReturnValueEventHandler returnValue;
         //public event myReturnGestureEventHandler returnGesture;
 
@@ -112,19 +115,30 @@ namespace serverControl
                    // user.surfaceObjectSelected = true;
                    
                 }
-                if (msgArray[0] == "returnValue")
+                else if (msgArray[0] == "returnValue")
                 {
                     returnValueEventArgs e = new returnValueEventArgs();
                     //returnValue(this, e);
                 }
-                if (msgArray[0] == "returnGesture")
+                else if (msgArray[0] == "returnGesture")
                 {
                     returnGestureEventArgs e = new returnGestureEventArgs();
                    // returnGesture(this, e);
                 }
-                if (msgArray[0] == "itemSelect")
+                else if (msgArray[0] == "itemSelect")
                 {
-                    MessageBox.Show("ItemSelect");
+                    itemSelectedEventArgs e = new itemSelectedEventArgs();
+                    e.TagID = Convert.ToInt32(msgArray[1]);
+                    e.centent = msgArray[3];
+                    e.caption = msgArray[2];
+                    e.user = user;
+
+                    if (ItemSelected != null)
+                    {
+                        ItemSelected(this, e);
+                    }
+                    
+                 
                 }
 
             }
