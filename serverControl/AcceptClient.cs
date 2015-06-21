@@ -20,8 +20,11 @@ namespace serverControl
         public Socket Interaction_Listening_SendingPoint;// designed for the sending point formate
         public Socket Interaction_Listening_SendingMsg;// designed for the sending the Message to the mobile
 
+        public delegate void myReturnUserListEventHandler(object sender, userListEventArgs e);
+        public event myReturnUserListEventHandler UserListReturned;
+
         public IPEndPoint iepCommand, iepReceivingMsgFromMobile, iepSendingImage, iepSendingPoint, iepSendMsg; // Four ip end point
-        public User my_user;        
+        public User my_user;
         Mode currentMode;
         public threadService command;
         int i = 0;
@@ -48,6 +51,7 @@ namespace serverControl
             this.iepSendingPoint = iepSendingPoint;
             this.iepSendMsg = iepSendMsg;
             UserList = new List<User>();
+           
         }
         //default constructor
         public AcceptClient()
@@ -58,7 +62,7 @@ namespace serverControl
 
 
         // this method used to accept the new client
-        public List<User> accept(IPEndPoint iepCommand, IPEndPoint iepReceivingMsgFromMobile, IPEndPoint iepSendingImage, IPEndPoint iepSendingPoint, IPEndPoint iepSendMsg)
+        public  IEnumerable<object> accept(IPEndPoint iepCommand, IPEndPoint iepReceivingMsgFromMobile, IPEndPoint iepSendingImage, IPEndPoint iepSendingPoint, IPEndPoint iepSendMsg)
         {
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             Interaction_Listening_ReceivingMsgFromMobile = new Socket
@@ -88,7 +92,6 @@ namespace serverControl
             while (true)
             {
 
-
                 // Here is three blocks for accepting the new client, 
                 // once client connect to the command listening socket, 
                 // pass the command listening socket to the threadService class
@@ -99,8 +102,9 @@ namespace serverControl
                 Debug.Write("stop before the accept");
                 Command_Listening_Socket = server.Accept();
                 Debug.Write("Stop after the accept");
+
                 int msgLenght = Command_Listening_Socket.Receive(msgFromMobile);// receive the byte array from mobile, and store into msgFormMobile
-                
+
                 string msg = System.Text.Encoding.ASCII.GetString(msgFromMobile, 0, msgLenght);// convert into string type
                 msgArray = trim(msg);//msg formate should be "tagID"+" "+"Mode",
                 int Tag = Convert.ToInt32(msgArray[1]);// return the tagID in integer 
@@ -122,7 +126,7 @@ namespace serverControl
                         // travel all the member of list
                         // in order to compare with tagID 
                         bool found = false;
-                        for ( i = 0; i < UserList.Count; i++)
+                        for (i = 0; i < UserList.Count; i++)
                         {
                             //If cannot find the TagID which is send from mobile in the list
                             //that one is new user, therefore, we add it into UserList
@@ -137,26 +141,33 @@ namespace serverControl
                         if (!found)
                         {
                             my_user = new User(Tag, false, false, Command_Listening_Socket, Interaction_Listening_ReceivingMsgFromMobile, Interaction_Listening_SendingImage, Interaction_Listening_SendingPoint, Interaction_Listening_SendingMsg, false, currentMode);
-                                UserList.Add(my_user);
-                                //command = new threadService(my_user);
-                                Thread commandThread = new Thread(
-                         () =>
-                         {
-                             command.userCommand(my_user);
+                            UserList.Add(my_user);
+                            userListEventArgs e = new userListEventArgs();
+                            e.UserList = UserList;
+                            if (UserListReturned != null)
+                                UserListReturned(this, e);
+                            //command = new threadService(my_user);
+                            Thread commandThread = new Thread(
+                     () =>
+                     {
+                         command.userCommand(my_user);
 
-                         }
+                     }
 
-                         );
-                                commandThread.Start();
+                     );
+
+                            commandThread.Start();
+                            yield return UserList;
+
                         }
-                            //If we can find the TagID in the list
-                            //we change this User's status to the current mode
-                        else 
+                        //If we can find the TagID in the list
+                        //we change this User's status to the current mode
+                        else
                         {
-                                UserList[i].MyMode = currentMode;
+                            UserList[i].MyMode = currentMode;
                         }
 
-                        
+
                     }
                     // when UserList is empty,this user can be considered as first User
                     // we add it into list, and start a command thread to the further action
@@ -165,8 +176,12 @@ namespace serverControl
                         Debug.WriteLine("Before add, UserList count:{0}", UserList.Count);
                         my_user = new User(Tag, false, false, Command_Listening_Socket, Interaction_Listening_ReceivingMsgFromMobile, Interaction_Listening_SendingImage, Interaction_Listening_SendingPoint, Interaction_Listening_SendingMsg, false, currentMode);
                         UserList.Add(my_user);
+                        userListEventArgs e = new userListEventArgs();
+                        e.UserList = UserList;
+                        if (UserListReturned != null)
+                            UserListReturned(this, e);
                         Debug.WriteLine("after add, UserList tagID:{0}", UserList[0].UserID);
-                       // command = new threadService(my_user);
+                        //command = new threadService(my_user);
                         Thread commandThread = new Thread(
                          () =>
                          {
@@ -175,21 +190,23 @@ namespace serverControl
                          }
 
                          );
-
                         Debug.Write("add into UserList");
                         commandThread.Start();
+                        yield return UserList;
+
+
                     }
                 }
                 // if the mode's name is anthing else, 
                 // we need tell the user need setup firstly
-                else
-                {
-                    Debug.WriteLine("please setup firstly");
-                }
-                return UserList;
+
+
+
 
             }
-            
+
+
+
 
         }
 
