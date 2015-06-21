@@ -15,8 +15,10 @@ namespace serverControl
         User user;
         double x, y;
         public delegate void myObjectClickedEventHandler(object sender, objectClickedEventArgs e);
-        public delegate void myItemSelectedEventHandler(object sender,  itemSelectedEventArgs e);             
-           
+        public delegate void myItemSelectedEventHandler(object sender,  itemSelectedEventArgs e);
+
+ 
+  
         //public delegate void myReturnValueEventHandler(object sender, returnValueEventArgs e);
         //public delegate void myReturnGestureEventHandler(object sender, returnGestureEventArgs e);
         public event myObjectClickedEventHandler objectClicked;
@@ -93,12 +95,14 @@ namespace serverControl
             Debug.WriteLine("In the receive method");
             byte[] bytes = new byte[1024];
 
+
             while ((i = user.interation_Receiving_Socket.Receive(bytes)) != 0)
             {
                 data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                 Debug.WriteLine("object select from the userID {0}: {1}", user.UserID, data);
                 string[] msgArray = new string[3];
                 msgArray=trim(data);
+
                 if (msgArray[0] == "objectClick")
                 {
                     objectClickedEventArgs e = new objectClickedEventArgs();

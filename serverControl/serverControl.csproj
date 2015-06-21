@@ -57,6 +57,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="userListEventArgs.cs" />
     <Page Include="UserControl1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

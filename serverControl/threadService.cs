@@ -27,7 +27,10 @@ namespace serverControl
         public static int connections = 0;
         int i = 0;
         User user;
-        public CommunicationThread communication; 
+        public CommunicationThread communication;
+
+
+
         //default constructor
         public threadService()
         {
@@ -59,6 +62,7 @@ namespace serverControl
             if (user.command_Communication_Socket != null)
             {
                 connections++;
+               
             }
             Debug.WriteLine("new client connects, {0} connections", connections);
 
@@ -68,6 +72,7 @@ namespace serverControl
             {
                 i = user.command_Communication_Socket.Receive(bytes);
                 data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
+
 
                 string[] myMsg = trim(data);
                 
