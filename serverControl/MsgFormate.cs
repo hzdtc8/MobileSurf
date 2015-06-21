@@ -86,7 +86,16 @@ namespace serverControl
             msg.messageText = dropdownList;
             msg.messageType = MsgTpye.dropdownList;
             return msg;
-            
+
+        }
+
+        public static MsgFormate newTextbox(String content, String caption, String TagID)
+        {
+            MsgFormate msg = new MsgFormate();
+            msg.messageText = String.Format(Textbox, TagID, caption, content);
+            msg.messageType = MsgTpye.speech;
+            return msg;
+
         }
 
 

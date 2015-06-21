@@ -33,9 +33,15 @@ namespace serverTest
         /// 
 
         Point LoginButtonTopLeftToScreen, LoginButtonBottomRightToScreen,ForgetButtonTopLeftToScreen,ForgetButtonBottomRightToScreen;
+        
+        Point TextBoxTopLeftToScreen, TextBoxBottomRightToScreen;
+        public double TextBoxTofet, TextBoxToTop;
+
         public double LoginButtonTofet, LoginButtonToTop;
         ConvertIntoPhysicalDistance convertor;
         double loginWidth, loginHeight, forgetWidth, forgetHeight;
+
+        double TextBoxWidth, TextBoxHeight;
         TagVisualizationDefinition newDefinition;
 
         SurfaceTextBox textbox;
@@ -65,6 +71,8 @@ namespace serverTest
             uc.ac.command.communication.objectClicked += new CommunicationThread.myObjectClickedEventHandler(ct_objectClicked);
             uc.ac.command.communication.ItemSelected+=new CommunicationThread.myItemSelectedEventHandler(ct_ItemSelected);
 
+
+            //bool paragraphSelected = compare.compareWith(TextBoxTofet, TextBoxToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, TextBoxWidth, TextBoxHeight);
             myControl.Children.Add(uc);
             //helloTag.Definitions.Add(newDefinition);
             helloTag.Visibility = Visibility.Hidden;//helloTag is the name of TagVisualizer
@@ -106,9 +114,36 @@ namespace serverTest
             User user = e.user;
            //bool ObjectSelectedOnAutoFill
 
-             
+            bool paragraphSelected = compare.compareWith(TextBoxTofet, TextBoxToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, TextBoxWidth, TextBoxHeight);
             bool ObjectSelected = compare.compareWith(LoginButtonTofet, LoginButtonToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, loginWidth, loginHeight);
-            if (ObjectSelected&&user.OnSurface)
+            if (paragraphSelected)
+            {
+                string content = "";
+
+                tbTestBox.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                   new Action(
+                       delegate()
+                       {
+                           content = tbTestBox.Text;
+                       }
+               ));
+
+
+                serverControl.MsgFormate[] myMessage = {
+                        serverControl.MsgFormate.newSpeech("paragraph select","Successful",user.UserID.ToString()),
+                        serverControl.MsgFormate.newVibrate(),
+                        serverControl.MsgFormate.newTextbox(content,"textbox",user.UserID.ToString()),  
+                        serverControl.MsgFormate.newEnd()
+
+                                                       };
+
+                SendMsg sendMsgToMobile = new SendMsg();
+                string message = sendMsgToMobile.translateMessage(myMessage);
+                sendMsgToMobile.SendMsgToMobile(user.interaction_SendMsg_Socekt, message);
+            }
+
+
+            else if (ObjectSelected && user.OnSurface)
             {
                 serverControl.MsgFormate[] myMessage = {
                         serverControl.MsgFormate.newSpeech("login button clicked","Successful",user.UserID.ToString()),
@@ -120,7 +155,7 @@ namespace serverTest
                 //string message = "success" + ";" + user.UserID.ToString()+";"+"login button clicked" ;
                 SendMsg sendMsgToMobile = new SendMsg();
                 string message = sendMsgToMobile.translateMessage(myMessage);
-                sendMsgToMobile.SendMsgToMobile(user.interaction_SendMsg_Socekt,message);
+                sendMsgToMobile.SendMsgToMobile(user.interaction_SendMsg_Socekt, message);
                 helloTag.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
                     new Action(
                         delegate()
@@ -129,12 +164,12 @@ namespace serverTest
                         }
                 ));
 
-                
-               
-                
+
+
+
 
             }
-            else
+            else  
             {
                 //string message = "failure" + ";" + user.UserID.ToString() + ";" + "Nothing Clicked";
                 serverControl.MsgFormate[] myMessage = {
@@ -239,17 +274,27 @@ namespace serverTest
 
             LoginButtonTopLeftToScreen = login.PointToScreen(desktopWorkingArea.TopLeft);
             LoginButtonBottomRightToScreen = login.PointFromScreen(desktopWorkingArea.BottomRight);
-            ForgetButtonBottomRightToScreen = forgot.PointToScreen(desktopWorkingArea.TopLeft);
-            ForgetButtonTopLeftToScreen = forgot.PointFromScreen(desktopWorkingArea.BottomRight);
             LoginButtonTofet = convertor.ConvertDistanceFromPointX(LoginButtonTopLeftToScreen);
             loginWidth = convertor.ConvertDistanceFromPixel(login.ActualWidth) ;
             loginHeight = convertor.ConvertDistanceFromPixel(login.ActualHeight);
-            forgetWidth = convertor.ConvertDistanceFromPixel(forgot.ActualWidth);
-            forgetHeight = convertor.ConvertDistanceFromPixel(forgot.ActualHeight);
             LoginButtonToTop = convertor.ConvertDistanceFromPointY(LoginButtonTopLeftToScreen, login.ActualHeight);
             Debug.WriteLine("Login Button: To Left={0}, To top={1}", convertor.ConvertDistanceFromPointX(LoginButtonTopLeftToScreen), convertor.ConvertDistanceFromPointY(LoginButtonTopLeftToScreen, login.ActualHeight));
             Debug.WriteLine("Login Button: To right={0}, to bottom={1}", convertor.ConvertDistanceFromPointXButtomRight(LoginButtonBottomRightToScreen, login.ActualWidth), convertor.ConvertDistanceFromPointYButtomRight(LoginButtonBottomRightToScreen, login.ActualHeight));
 
+            TextBoxTopLeftToScreen = tbTestBox.PointToScreen(desktopWorkingArea.TopLeft);
+            TextBoxBottomRightToScreen = tbTestBox.PointFromScreen(desktopWorkingArea.BottomRight);
+            TextBoxTofet = convertor.ConvertDistanceFromPointX(TextBoxTopLeftToScreen);
+            TextBoxToTop = convertor.ConvertDistanceFromPointYBox(TextBoxTopLeftToScreen);//convertor.ConvertDistanceFromPointY(TextBoxTopLeftToScreen, tbTestBox.ActualHeight);
+            TextBoxWidth = convertor.ConvertDistanceFromPixel(tbTestBox.ActualWidth);
+            TextBoxHeight = convertor.ConvertDistanceFromPixel(tbTestBox.ActualHeight);
+            Debug.WriteLine("TextBox: To Left={0}, To top={1}", convertor.ConvertDistanceFromPointX(TextBoxTopLeftToScreen), TextBoxToTop);
+            Debug.WriteLine("TextBox: To right={0}, to bottom={1}", convertor.ConvertDistanceFromPointXButtomRight(TextBoxBottomRightToScreen, tbTestBox.ActualWidth), convertor.ConvertDistanceFromPointYButtomRight(TextBoxBottomRightToScreen, tbTestBox.ActualHeight));
+
+
+            //ForgetButtonBottomRightToScreen = forgot.PointToScreen(desktopWorkingArea.TopLeft);
+            //ForgetButtonTopLeftToScreen = forgot.PointFromScreen(desktopWorkingArea.BottomRight); 
+            //forgetWidth = convertor.ConvertDistanceFromPixel(forgot.ActualWidth);
+            //forgetHeight = convertor.ConvertDistanceFromPixel(forgot.ActualHeight);
 
 
 

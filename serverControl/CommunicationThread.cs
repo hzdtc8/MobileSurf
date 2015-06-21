@@ -140,6 +140,16 @@ namespace serverControl
                     
                  
                 }
+                else if (msgArray[0] == "paragraphSelect")
+                {
+                    paragraphSelectedEventArgs e = new paragraphSelectedEventArgs();
+                    //pass the tagID,Coordinate,last point, user into event args
+                    e.TagID = Convert.ToInt32(msgArray[1]);
+                    e.Coordinate = msgArray[3];//tabletop coordinate
+                    e.CoordinateOfTabletopPointX = user.pointX;
+                    e.CoordinateOfTabletopPointY = user.pointY;
+                    e.user = user;
+                }
 
             }
 

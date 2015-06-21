@@ -68,6 +68,7 @@
     <Compile Include="Mode.cs" />
     <Compile Include="MsgFormate.cs" />
     <Compile Include="objectClickedEventArgs.cs" />
+    <Compile Include="paragraphSelectedEventArgs.cs" />
     <Compile Include="PrivateModeHeader.cs" />
     <Compile Include="returnGestureEventArgs.cs" />
     <Compile Include="returnValueEventArgs.cs" />
