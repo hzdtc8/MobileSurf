@@ -17,10 +17,10 @@ namespace serverControl
         public delegate void myObjectClickedEventHandler(object sender, objectClickedEventArgs e);
         public delegate void myItemSelectedEventHandler(object sender,  itemSelectedEventArgs e);
 
- 
-  
-        //public delegate void myReturnValueEventHandler(object sender, returnValueEventArgs e);
-        //public delegate void myReturnGestureEventHandler(object sender, returnGestureEventArgs e);
+
+
+        public delegate void myReturnValueEventHandler(object sender, returnValueEventArgs e);
+        public delegate void myReturnGestureEventHandler(object sender, returnGestureEventArgs e);
         public event myObjectClickedEventHandler objectClicked;
         public event myItemSelectedEventHandler ItemSelected;
         //public event myReturnValueEventHandler returnValue;
@@ -122,6 +122,8 @@ namespace serverControl
                 else if (msgArray[0] == "returnValue")
                 {
                     returnValueEventArgs e = new returnValueEventArgs();
+                    e.password = msgArray[4];
+                    e.username = msgArray[3];
                     //returnValue(this, e);
                 }
                 else if (msgArray[0] == "returnGesture")
