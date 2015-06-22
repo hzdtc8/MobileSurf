@@ -23,8 +23,8 @@ namespace serverControl
         public delegate void myReturnGestureEventHandler(object sender, returnGestureEventArgs e);
         public event myObjectClickedEventHandler objectClicked;
         public event myItemSelectedEventHandler ItemSelected;
-        //public event myReturnValueEventHandler returnValue;
-        //public event myReturnGestureEventHandler returnGesture;
+        public event myReturnValueEventHandler returnValue;
+        public event myReturnGestureEventHandler returnGesture;
 
 
         //Defaut constructor
@@ -124,7 +124,7 @@ namespace serverControl
                     returnValueEventArgs e = new returnValueEventArgs();
                     e.password = msgArray[4];
                     e.username = msgArray[3];
-                    //returnValue(this, e);
+                    returnValue(this, e);
                 }
                 else if (msgArray[0] == "returnGesture")
                 {
