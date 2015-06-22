@@ -7,7 +7,9 @@ namespace serverControl
 {
     public class returnValueEventArgs
     {
-        public string Coordinate;
+        
         public int TagID;
+        public string password;
+        public string username;
     }
 }
