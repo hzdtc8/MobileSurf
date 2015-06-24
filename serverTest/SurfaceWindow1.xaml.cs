@@ -31,11 +31,17 @@ namespace serverTest
         /// Default constructor.
         /// </summary>
         /// 
+   ConvertIntoPhysicalDistance convertor;
 
         Point LoginButtonTopLeftToScreen, LoginButtonBottomRightToScreen, ForgetButtonTopLeftToScreen, ForgetButtonBottomRightToScreen;
+        public double LoginButtonTofet, LoginButtonToTop;
+     
 
         Point TextBoxTopLeftToScreen, TextBoxBottomRightToScreen;
         public double TextBoxTofet, TextBoxToTop;
+
+        Point lockStatusImageTopLeftToScreen, lockStatusImageBottomRightToScreen;
+        public double lockStatusImageTofet, lockStatusImageToTop;
 
         Point surfaceTextBoxTopLeftToScreen, surfaceTextBoxBottomRightToScreen;
         public double surfaceTextBoxTofet, surfaceTextBoxToTop;
@@ -43,11 +49,11 @@ namespace serverTest
         Point passwordTopLeftToScreen, passwordBottomRightToScreen;
         public double passwordTofet, passwordToTop;
 
-        public double LoginButtonTofet, LoginButtonToTop;
-        ConvertIntoPhysicalDistance convertor;
+
 
         double loginWidth, loginHeight, forgetWidth, forgetHeight;
         double TextBoxWidth, TextBoxHeight;
+        double lockStatusImageWidth, lockStatusImageHeight;
         double passwordWidth, passwordHeight;
         double surfaceTextBoxWidth, surfaceTextBoxHeight;
         TagVisualizationDefinition newDefinition;
@@ -279,6 +285,7 @@ namespace serverTest
             User user = e.user;
             //bool ObjectSelectedOnAutoFill
             bool surfacetextBoxSelected = compare.compareWith(surfaceTextBoxTofet, surfaceTextBoxToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, surfaceTextBoxWidth, surfaceTextBoxHeight);
+            bool LockStatusSelected= compare.compareWith(lockStatusImageTofet, lockStatusImageToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, lockStatusImageWidth, lockStatusImageHeight);
             bool passwordSelected = compare.compareWith(passwordTofet, passwordToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, passwordWidth, passwordHeight);
             bool paragraphSelected = compare.compareWith(TextBoxTofet, TextBoxToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, TextBoxWidth, TextBoxHeight);
             bool ObjectSelected = compare.compareWith(LoginButtonTofet, LoginButtonToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, loginWidth, loginHeight);
@@ -334,6 +341,10 @@ namespace serverTest
                 SendMsg sendMsgToMobile = new SendMsg();
                 string message = sendMsgToMobile.translateMessage(myMessage);
                 sendMsgToMobile.SendMsgToMobile(user.interaction_SendMsg_Socekt, message);
+            }
+            else if (LockStatusSelected)
+            {
+                MessageBox.Show("lockStatusSelected");
             }
 
 
@@ -502,6 +513,14 @@ namespace serverTest
             Debug.WriteLine("password: To Left={0}, To top={1}", convertor.ConvertDistanceFromPointX(passwordTopLeftToScreen), passwordToTop);
             Debug.WriteLine("password: To right={0}, to bottom={1}", convertor.ConvertDistanceFromPointXButtomRight(passwordBottomRightToScreen, tbPassword.ActualWidth), convertor.ConvertDistanceFromPointYButtomRight(passwordBottomRightToScreen, tbPassword.ActualHeight));
 
+            lockStatusImageTopLeftToScreen = tbLockStatusImage.PointToScreen(desktopWorkingArea.TopLeft);
+            lockStatusImageBottomRightToScreen = tbLockStatusImage.PointFromScreen(desktopWorkingArea.BottomRight);
+            lockStatusImageTofet = convertor.ConvertDistanceFromPointX(lockStatusImageTopLeftToScreen);
+            lockStatusImageToTop = convertor.ConvertDistanceFromPointY(lockStatusImageTopLeftToScreen, tbLockStatusImage.ActualHeight);
+            lockStatusImageWidth = convertor.ConvertDistanceFromPixel(tbLockStatusImage.ActualWidth);
+            lockStatusImageHeight = convertor.ConvertDistanceFromPixel(tbLockStatusImage.ActualHeight);
+            Debug.WriteLine("lockStatusImage: To Left={0}, To top={1}", convertor.ConvertDistanceFromPointX(lockStatusImageTopLeftToScreen), lockStatusImageToTop);
+            Debug.WriteLine("lockStatusImage: To right={0}, to bottom={1}", convertor.ConvertDistanceFromPointXButtomRight(lockStatusImageBottomRightToScreen, tbLockStatusImage.ActualWidth), convertor.ConvertDistanceFromPointYButtomRight(lockStatusImageBottomRightToScreen, tbLockStatusImage.ActualHeight));
             //ForgetButtonBottomRightToScreen = forgot.PointToScreen(desktopWorkingArea.TopLeft);
             //ForgetButtonTopLeftToScreen = forgot.PointFromScreen(desktopWorkingArea.BottomRight); 
             //forgetWidth = convertor.ConvertDistanceFromPixel(forgot.ActualWidth);

@@ -42,13 +42,13 @@
                     <Border BorderThickness="1" BorderBrush="Black">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                     <Label Content="Username"></Label>
-                    <s:SurfaceTextBox Width="360"></s:SurfaceTextBox>
+                    <s:SurfaceTextBox Name="tbUsername" Width="360"></s:SurfaceTextBox>
                 </StackPanel>
                     </Border >
                     <Border BorderThickness="1" BorderBrush="Black">
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                     <Label Content="Password "></Label>
-                    <s:SurfacePasswordBox Width="360"></s:SurfacePasswordBox>
+                    <s:SurfacePasswordBox Name="tbPassword" Width="360"></s:SurfacePasswordBox>
                 </StackPanel>
                     </Border>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
@@ -66,16 +66,21 @@
                     <Border BorderBrush="#FFE5D517" BorderThickness="2">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Background="White">
-                </StackPanel>
-                <TextBlock Text="The Gurdian Life Insurance Company" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold"></TextBlock>
-                <s:SurfaceTextBox                     
+                            
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="The Gurdian Life Insurance Company" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold">
+</TextBlock>
+                            <Image Name="tbLockStatusImage" Source="/serverTest;component/Images/Lock-Lock-icon.png" Width="72" Height="63"></Image>
+                        </StackPanel>
+                <s:SurfaceTextBox 
+                    Name="tbSurfaceTextBox"
                         HorizontalAlignment="Left" 
                         TextWrapping="Wrap" 
                         VerticalAlignment="Top"                   
                         Text="The Gurdian Life Insurance Company offers financial products and services. Among its products include life insurance, disability insurance, retirement programs, and health plans which have HMO, PPO, and dental and vision plans." 
-                    Padding="10" TextAlignment="Justify" IsReadOnly="True" Focusable="False" 
-                    IsTabStop="False" IsUndoEnabled="True" AllowDrop="False" Background="#FF173400" Foreground="White">
-                </s:SurfaceTextBox>
+                    Padding="10" TextAlignment="Justify" IsReadOnly="True" Focusable="False" FontSize="13"
+                    IsTabStop="False" IsUndoEnabled="True" AllowDrop="False" Background="#FF173400" Foreground="WhiteSmoke"></s:SurfaceTextBox>
 
                 <TextBlock Text="Mission Statement" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"></TextBlock>
                 <s:SurfaceTextBox 
@@ -85,7 +90,7 @@
                         Name="tbTestBox" 
                         VerticalAlignment="Top"
                          Text="Our purpose is to enrich the lives of people we touch. By providing highest performing financial products and services that reduce risk and increase assets, we help individuals and employers fulfill their responsibilities and build better tomorrows. Our culture is based on an unwavering belief in integrity and fair dealings, treating our clients and each other with dignity and respect... We take prudent risks and work together to assure our success and profitability in the future... We work hard to enhance continuously our reputation for accessibility, professionalism, performance, and the depth and quality of our long-term consultative relationships with clients... We endeavor to be valued as an industry leader in client satisfaction, sales growth, product performance, financial strength and profitability."
-                        Padding="10" 
+                        Padding="10" FontSize="13"
                         TextAlignment="Justify" 
                         IsReadOnly="True" Background="#FF071400" Foreground="White">
                 </s:SurfaceTextBox>

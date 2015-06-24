@@ -110,6 +110,10 @@
     <Resource Include="Images\Scratch-out.gif" />
     <Resource Include="Images\doublecurlicue.gif" />
     <Resource Include="Images\curlicue.gif" />
+    <Resource Include="Images\lock-unlocked-circle-512.png" />
+    <Resource Include="Images\No-DRM_lock_svg.png" />
+    <Resource Include="Images\Lock-Lock-icon.png" />
+    <Resource Include="Images\Lock-Unlock-icon.png" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
