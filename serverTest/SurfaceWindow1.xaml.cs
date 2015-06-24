@@ -32,16 +32,24 @@ namespace serverTest
         /// </summary>
         /// 
 
-        Point LoginButtonTopLeftToScreen, LoginButtonBottomRightToScreen,ForgetButtonTopLeftToScreen,ForgetButtonBottomRightToScreen;
-        
+        Point LoginButtonTopLeftToScreen, LoginButtonBottomRightToScreen, ForgetButtonTopLeftToScreen, ForgetButtonBottomRightToScreen;
+
         Point TextBoxTopLeftToScreen, TextBoxBottomRightToScreen;
         public double TextBoxTofet, TextBoxToTop;
 
+        Point surfaceTextBoxTopLeftToScreen, surfaceTextBoxBottomRightToScreen;
+        public double surfaceTextBoxTofet, surfaceTextBoxToTop;
+
+        Point passwordTopLeftToScreen, passwordBottomRightToScreen;
+        public double passwordTofet, passwordToTop;
+
         public double LoginButtonTofet, LoginButtonToTop;
         ConvertIntoPhysicalDistance convertor;
-        double loginWidth, loginHeight, forgetWidth, forgetHeight;
 
+        double loginWidth, loginHeight, forgetWidth, forgetHeight;
         double TextBoxWidth, TextBoxHeight;
+        double passwordWidth, passwordHeight;
+        double surfaceTextBoxWidth, surfaceTextBoxHeight;
         TagVisualizationDefinition newDefinition;
 
         SurfaceTextBox textbox;
@@ -51,8 +59,8 @@ namespace serverTest
         public SurfaceWindow1()
         {
             InitializeComponent();
-            UserControl1 uc = new UserControl1(); 
-            convertor= new ConvertIntoPhysicalDistance();
+            UserControl1 uc = new UserControl1();
+            convertor = new ConvertIntoPhysicalDistance();
             newDefinition = new TagVisualizationDefinition();
             newDefinition.Value = 5;
             newDefinition.Source = new Uri("ToolTips.xaml", UriKind.Relative);
@@ -61,15 +69,16 @@ namespace serverTest
             newDefinition.PhysicalCenterOffsetFromTag = new Vector(1.0, 5.0);
 
             myScatter.Visibility = Visibility.Hidden;
-            
+
 
             uc.ac = new AcceptClient();
-            
+
 
             uc.ac.command = new threadService();
             uc.ac.command.communication = new CommunicationThread();
             uc.ac.command.communication.objectClicked += new CommunicationThread.myObjectClickedEventHandler(ct_objectClicked);
-            uc.ac.command.communication.ItemSelected+=new CommunicationThread.myItemSelectedEventHandler(ct_ItemSelected);
+            uc.ac.command.communication.ItemSelected += new CommunicationThread.myItemSelectedEventHandler(ct_ItemSelected);
+            uc.ac.command.communication.returnValue += new CommunicationThread.myReturnValueEventHandler(communication_returnValue);
 
 
             //bool paragraphSelected = compare.compareWith(TextBoxTofet, TextBoxToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, TextBoxWidth, TextBoxHeight);
@@ -78,31 +87,187 @@ namespace serverTest
             helloTag.Visibility = Visibility.Hidden;//helloTag is the name of TagVisualizer
             AddWindowAvailabilityHandlers();
 
-            
+
         }
+        void communication_returnValue(object sender, returnValueEventArgs e)
+        {
+            if (e.nameOfInterface == "changeFontColor")
+            {
+                if (e.color == "red")
+                {
+                    serverControl.MsgFormate[] myMessage = {
+                        serverControl.MsgFormate.newSpeech("you change the font color to red","Successful",""),
+                        serverControl.MsgFormate.newVibrate(), 
+                        serverControl.MsgFormate.newEnd()
+
+                                                       };
+                    SendMsg sendMsgToMobile = new SendMsg();
+                    string message = sendMsgToMobile.translateMessage(myMessage);
+                    sendMsgToMobile.SendMsgToMobile(e.user.interaction_SendMsg_Socekt, message);
+
+                    tbSurfaceTextBox.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                    new Action(
+                        delegate()
+                        {
+                            tbSurfaceTextBox.Foreground = Brushes.Red;
+                        }
+                ));
+
+                }
+                else if (e.color == "blue")
+                {
+                    serverControl.MsgFormate[] myMessage = {
+                        serverControl.MsgFormate.newSpeech("you change the font color to blue","Successful",""),
+                        serverControl.MsgFormate.newVibrate(), 
+                        serverControl.MsgFormate.newEnd()
+
+                                                       };
+                    SendMsg sendMsgToMobile = new SendMsg();
+                    string message = sendMsgToMobile.translateMessage(myMessage);
+                    sendMsgToMobile.SendMsgToMobile(e.user.interaction_SendMsg_Socekt, message);
+
+                    tbSurfaceTextBox.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                    new Action(
+                        delegate()
+                        {
+                            tbSurfaceTextBox.Foreground = Brushes.Blue;
+                        }
+                ));
+                }
+                else if (e.color == "yellow")
+                {
+                    serverControl.MsgFormate[] myMessage = {
+                        serverControl.MsgFormate.newSpeech("you change the font color to yellow","Successful",""),
+                        serverControl.MsgFormate.newVibrate(), 
+                        serverControl.MsgFormate.newEnd()
+
+                                                       };
+                    SendMsg sendMsgToMobile = new SendMsg();
+                    string message = sendMsgToMobile.translateMessage(myMessage);
+                    sendMsgToMobile.SendMsgToMobile(e.user.interaction_SendMsg_Socekt, message);
+
+                    tbSurfaceTextBox.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                    new Action(
+                        delegate()
+                        {
+                            tbSurfaceTextBox.Foreground = Brushes.Yellow;
+                        }
+                ));
+                }
+                
+            }
+            else if (e.nameOfInterface == "changeFontSize")
+            {
+                if (e.changeFondSize == "grow")
+                {
+                    serverControl.MsgFormate[] myMessage = {
+                        serverControl.MsgFormate.newSpeech("you grow the font size","Successful",""),
+                        serverControl.MsgFormate.newVibrate(), 
+                        serverControl.MsgFormate.newEnd()
+
+                                                       };
+                    SendMsg sendMsgToMobile = new SendMsg();
+                    string message = sendMsgToMobile.translateMessage(myMessage);
+                    sendMsgToMobile.SendMsgToMobile(e.user.interaction_SendMsg_Socekt, message);
+
+                    tbSurfaceTextBox.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                    new Action(
+                        delegate()
+                        { 
+                            double currentFontSize= tbSurfaceTextBox.FontSize;
+                            tbSurfaceTextBox.FontSize = ++currentFontSize;
+                            
+                        }
+                ));
+                }
+                else if (e.changeFondSize == "shrink")
+                {
+                    serverControl.MsgFormate[] myMessage = {
+                        serverControl.MsgFormate.newSpeech("you shrink the fond size","Successful",""),
+                        serverControl.MsgFormate.newVibrate(), 
+                        serverControl.MsgFormate.newEnd()
+
+                                                       };
+                    SendMsg sendMsgToMobile = new SendMsg();
+                    string message = sendMsgToMobile.translateMessage(myMessage);
+                    sendMsgToMobile.SendMsgToMobile(e.user.interaction_SendMsg_Socekt, message);
+
+                    tbSurfaceTextBox.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                    new Action(
+                        delegate()
+                        {
+                            double currentFontSize = tbSurfaceTextBox.FontSize;
+                            tbSurfaceTextBox.FontSize = --currentFontSize;
+                        }
+                ));
+                }
+            }
+            else if (e.nameOfInterface == "login form")
+            {
+                if (e.password == "hcilab" && e.username == "hcilab" || e.password == "hcilabgood" && e.username == "hcilabgood")
+                {
+                    serverControl.MsgFormate[] myMessage = {
+                        serverControl.MsgFormate.newSpeech("login successful","Successful",""),
+                        serverControl.MsgFormate.newVibrate(), 
+                        serverControl.MsgFormate.newSuccess(),
+                        serverControl.MsgFormate.newEnd()
+
+                                                       };
+                    SendMsg sendMsgToMobile = new SendMsg();
+                    string message = sendMsgToMobile.translateMessage(myMessage);
+                    sendMsgToMobile.SendMsgToMobile(e.user.interaction_SendMsg_Socekt, message);
+                    MessageBox.Show("login successful");
+
+
+
+                }
+                else
+                {
+                    serverControl.MsgFormate[] myMessage = {
+                        serverControl.MsgFormate.newSpeech("username or password is incorrect, please try again","Successful",""),
+                        serverControl.MsgFormate.newVibrate(), 
+                        serverControl.MsgFormate.newEnd()
+
+                                                       };
+                    SendMsg sendMsgToMobile = new SendMsg();
+                    string message = sendMsgToMobile.translateMessage(myMessage);
+                    sendMsgToMobile.SendMsgToMobile(e.user.interaction_SendMsg_Socekt, message);
+                    MessageBox.Show("login failure,please try again");
+
+
+
+                }
+            }
+            else if (e.nameOfInterface == "accessControl")
+            {
+                //how to handler the lock or unlock
+            }
+        }
+
+
         void ct_ItemSelected(object sender, itemSelectedEventArgs e)
         {
-            
+
 
             myScatter.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
                     new Action(
                         delegate()
                         {
                             myTextBox.Text = e.centent;
-                           myScatter.Visibility = Visibility.Visible;
+                            myScatter.Visibility = Visibility.Visible;
                         }
                 ));
         }
 
 
-         void ct_objectClicked(object sender,objectClickedEventArgs e)
+        void ct_objectClicked(object sender, objectClickedEventArgs e)
         {
-            
-           Trim trim= new Trim();
-           Comparison compare = new Comparison();
+
+            Trim trim = new Trim();
+            Comparison compare = new Comparison();
             double[] MobilePoint = new double[2];
-            ConvertIntoPhysicalDistance convertors = new ConvertIntoPhysicalDistance(); 
-            MobilePoint=trim.trimToDouble(trim.trim(e.Coordinate));
+            ConvertIntoPhysicalDistance convertors = new ConvertIntoPhysicalDistance();
+            MobilePoint = trim.trimToDouble(trim.trim(e.Coordinate));
             double mobilePointX = MobilePoint[0];
             double mobilePointY = MobilePoint[1];
             double tabletopPointX = e.CoordinateOfTabletopPointX;
@@ -112,11 +277,40 @@ namespace serverTest
             double mobilePointXPhysical = convertors.ConvertDistanceFromPixelInMobile(mobilePointX);
             double mobilePointYPhysical = convertors.ConvertDistanceFromPixelInMobile(mobilePointY);
             User user = e.user;
-           //bool ObjectSelectedOnAutoFill
-
+            //bool ObjectSelectedOnAutoFill
+            bool surfacetextBoxSelected = compare.compareWith(surfaceTextBoxTofet, surfaceTextBoxToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, surfaceTextBoxWidth, surfaceTextBoxHeight);
+            bool passwordSelected = compare.compareWith(passwordTofet, passwordToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, passwordWidth, passwordHeight);
             bool paragraphSelected = compare.compareWith(TextBoxTofet, TextBoxToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, TextBoxWidth, TextBoxHeight);
             bool ObjectSelected = compare.compareWith(LoginButtonTofet, LoginButtonToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, loginWidth, loginHeight);
-            if (paragraphSelected)
+            if (passwordSelected)
+            {
+                serverControl.MsgFormate[] myMessage = {
+                        serverControl.MsgFormate.newSpeech("password field select","Successful",user.UserID.ToString()),
+                        serverControl.MsgFormate.newVibrate(), 
+                        serverControl.MsgFormate.newEditText(),
+                        serverControl.MsgFormate.newEnd()
+
+                                                       };
+
+                SendMsg sendMsgToMobile = new SendMsg();
+                string message = sendMsgToMobile.translateMessage(myMessage);
+                sendMsgToMobile.SendMsgToMobile(user.interaction_SendMsg_Socekt, message);
+            }
+            else if (surfacetextBoxSelected)
+            {
+                serverControl.MsgFormate[] myMessage = {
+                        serverControl.MsgFormate.newSpeech("surface text box is selected","Successful",user.UserID.ToString()),
+                        serverControl.MsgFormate.newVibrate(), 
+                        serverControl.MsgFormate.newSurfaceTextbox(),
+                        serverControl.MsgFormate.newEnd()
+
+                                                       };
+
+                SendMsg sendMsgToMobile = new SendMsg();
+                string message = sendMsgToMobile.translateMessage(myMessage);
+                sendMsgToMobile.SendMsgToMobile(user.interaction_SendMsg_Socekt, message);
+            }
+            else if (paragraphSelected)
             {
                 string content = "";
 
@@ -169,7 +363,7 @@ namespace serverTest
 
 
             }
-            else  
+            else
             {
                 //string message = "failure" + ";" + user.UserID.ToString() + ";" + "Nothing Clicked";
                 serverControl.MsgFormate[] myMessage = {
@@ -187,14 +381,14 @@ namespace serverTest
                         delegate()
                         {
                             if (helloTag.Visibility == Visibility.Visible)
-                            helloTag.Visibility = Visibility.Hidden;
+                                helloTag.Visibility = Visibility.Hidden;
                             else
                                 helloTag.Visibility = Visibility.Visible;
                         }
                 ));
-              
+
             }
-         
+
         }
 
 
@@ -231,7 +425,7 @@ namespace serverTest
             ApplicationServices.WindowNoninteractive -= OnWindowNoninteractive;
             ApplicationServices.WindowUnavailable -= OnWindowUnavailable;
         }
-        
+
 
         /// <summary>
         /// This is called when the user can interact with the application's window.
@@ -269,13 +463,13 @@ namespace serverTest
         private void SurfaceWindow_Loaded(object sender, RoutedEventArgs e)
         {
             var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
-            
+
             Debug.WriteLine("{0},{1}", desktopWorkingArea.BottomRight.X, desktopWorkingArea.BottomRight.Y);
 
             LoginButtonTopLeftToScreen = login.PointToScreen(desktopWorkingArea.TopLeft);
             LoginButtonBottomRightToScreen = login.PointFromScreen(desktopWorkingArea.BottomRight);
             LoginButtonTofet = convertor.ConvertDistanceFromPointX(LoginButtonTopLeftToScreen);
-            loginWidth = convertor.ConvertDistanceFromPixel(login.ActualWidth) ;
+            loginWidth = convertor.ConvertDistanceFromPixel(login.ActualWidth);
             loginHeight = convertor.ConvertDistanceFromPixel(login.ActualHeight);
             LoginButtonToTop = convertor.ConvertDistanceFromPointY(LoginButtonTopLeftToScreen, login.ActualHeight);
             Debug.WriteLine("Login Button: To Left={0}, To top={1}", convertor.ConvertDistanceFromPointX(LoginButtonTopLeftToScreen), convertor.ConvertDistanceFromPointY(LoginButtonTopLeftToScreen, login.ActualHeight));
@@ -290,6 +484,23 @@ namespace serverTest
             Debug.WriteLine("TextBox: To Left={0}, To top={1}", convertor.ConvertDistanceFromPointX(TextBoxTopLeftToScreen), TextBoxToTop);
             Debug.WriteLine("TextBox: To right={0}, to bottom={1}", convertor.ConvertDistanceFromPointXButtomRight(TextBoxBottomRightToScreen, tbTestBox.ActualWidth), convertor.ConvertDistanceFromPointYButtomRight(TextBoxBottomRightToScreen, tbTestBox.ActualHeight));
 
+            surfaceTextBoxTopLeftToScreen = tbSurfaceTextBox.PointToScreen(desktopWorkingArea.TopLeft);
+            surfaceTextBoxBottomRightToScreen = tbSurfaceTextBox.PointFromScreen(desktopWorkingArea.BottomRight);
+            surfaceTextBoxTofet = convertor.ConvertDistanceFromPointX(surfaceTextBoxTopLeftToScreen);
+            surfaceTextBoxToTop = convertor.ConvertDistanceFromPointYBox(surfaceTextBoxTopLeftToScreen);//convertor.ConvertDistanceFromPointY(surfaceTextBoxTopLeftToScreen, tbSurfaceTextBox.ActualHeight);
+            surfaceTextBoxWidth = convertor.ConvertDistanceFromPixel(tbSurfaceTextBox.ActualWidth);
+            surfaceTextBoxHeight = convertor.ConvertDistanceFromPixel(tbSurfaceTextBox.ActualHeight);
+            Debug.WriteLine("surfaceTextBox: To Left={0}, To top={1}", convertor.ConvertDistanceFromPointX(surfaceTextBoxTopLeftToScreen), surfaceTextBoxToTop);
+            Debug.WriteLine("surfaceTextBox: To right={0}, to bottom={1}", convertor.ConvertDistanceFromPointXButtomRight(surfaceTextBoxBottomRightToScreen, tbSurfaceTextBox.ActualWidth), convertor.ConvertDistanceFromPointYButtomRight(surfaceTextBoxBottomRightToScreen, tbSurfaceTextBox.ActualHeight));
+
+            passwordTopLeftToScreen = tbPassword.PointToScreen(desktopWorkingArea.TopLeft);
+            passwordBottomRightToScreen = tbPassword.PointFromScreen(desktopWorkingArea.BottomRight);
+            passwordTofet = convertor.ConvertDistanceFromPointX(passwordTopLeftToScreen);
+            passwordToTop = convertor.ConvertDistanceFromPointY(passwordTopLeftToScreen, tbPassword.ActualHeight);
+            passwordWidth = convertor.ConvertDistanceFromPixel(tbPassword.ActualWidth);
+            passwordHeight = convertor.ConvertDistanceFromPixel(tbPassword.ActualHeight);
+            Debug.WriteLine("password: To Left={0}, To top={1}", convertor.ConvertDistanceFromPointX(passwordTopLeftToScreen), passwordToTop);
+            Debug.WriteLine("password: To right={0}, to bottom={1}", convertor.ConvertDistanceFromPointXButtomRight(passwordBottomRightToScreen, tbPassword.ActualWidth), convertor.ConvertDistanceFromPointYButtomRight(passwordBottomRightToScreen, tbPassword.ActualHeight));
 
             //ForgetButtonBottomRightToScreen = forgot.PointToScreen(desktopWorkingArea.TopLeft);
             //ForgetButtonTopLeftToScreen = forgot.PointFromScreen(desktopWorkingArea.BottomRight); 
@@ -302,11 +513,11 @@ namespace serverTest
         }
 
 
-        
 
 
 
 
-       
+
+
     }
 }
