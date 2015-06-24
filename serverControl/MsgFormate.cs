@@ -20,7 +20,9 @@ namespace serverControl
             editText,
             drawing,
             linearLayout,
-            dropdownList
+            dropdownList,
+            textbox,
+            surfaceTextbox
         };
 
 
@@ -38,6 +40,7 @@ namespace serverControl
         private static String linearLayoutMsg = "linearLayout;{0};{1};{2}/>";//linearLayout;tagID;caption;content 
         private static String dropdownList = "dropdownList;{0};{1};{2}/>";//dropdownList;tagID;caption;content 
         private static String Textbox = "textbox;{0};{1};{2}/>";//textbox;tagID;caption;content 
+        private static String SurfaceTextbox = "surfaceTextbox;{0};{1};{2}/>";//textbox;tagID;caption;content 
 
 
         public String messageText { get; set; }
@@ -88,12 +91,27 @@ namespace serverControl
             return msg;
 
         }
+        public static MsgFormate newEditText()
+        {
+            MsgFormate msg = new MsgFormate();
+            msg.messageText = editTextMsg;
+            msg.messageType = MsgTpye.editText;
+            return msg;
+        }
 
         public static MsgFormate newTextbox(String content, String caption, String TagID)
         {
             MsgFormate msg = new MsgFormate();
             msg.messageText = String.Format(Textbox, TagID, caption, content);
-            msg.messageType = MsgTpye.speech;
+            msg.messageType = MsgTpye.textbox;
+            return msg;
+
+        }
+        public static MsgFormate newSurfaceTextbox()
+        {
+            MsgFormate msg = new MsgFormate();
+            msg.messageText = SurfaceTextbox;
+            msg.messageType = MsgTpye.surfaceTextbox;
             return msg;
 
         }
