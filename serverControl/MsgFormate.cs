@@ -22,7 +22,8 @@ namespace serverControl
             linearLayout,
             dropdownList,
             textbox,
-            surfaceTextbox
+            surfaceTextbox,
+            image
         };
 
 
@@ -41,6 +42,7 @@ namespace serverControl
         private static String dropdownList = "dropdownList;{0};{1};{2}/>";//dropdownList;tagID;caption;content 
         private static String Textbox = "textbox;{0};{1};{2}/>";//textbox;tagID;caption;content 
         private static String SurfaceTextbox = "surfaceTextbox;{0};{1};{2}/>";//textbox;tagID;caption;content 
+        private static String Image = "image;{0};{1};{2}/>";//image;tagID;caption;content 
 
 
         public String messageText { get; set; }
@@ -112,6 +114,14 @@ namespace serverControl
             MsgFormate msg = new MsgFormate();
             msg.messageText = SurfaceTextbox;
             msg.messageType = MsgTpye.surfaceTextbox;
+            return msg;
+
+        }
+        public static MsgFormate newImage()
+        {
+            MsgFormate msg = new MsgFormate();
+            msg.messageText = Image;
+            msg.messageType = MsgTpye.image;
             return msg;
 
         }
