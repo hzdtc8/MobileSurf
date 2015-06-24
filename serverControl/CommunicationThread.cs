@@ -122,9 +122,35 @@ namespace serverControl
                 else if (msgArray[0] == "returnValue")
                 {
                     returnValueEventArgs e = new returnValueEventArgs();
-                    e.password = msgArray[4];
-                    e.username = msgArray[3];
-                    returnValue(this, e);
+                    if (msgArray[2] == "changeFontColor")
+                    {
+                        e.color = msgArray[3];
+                        e.user = user;
+                        e.nameOfInterface = msgArray[2];
+                        returnValue(this,e);
+                    }
+                    else if (msgArray[2] == "login form")
+                    {
+                        e.password = msgArray[4];
+                        e.username = msgArray[3];
+                        e.nameOfInterface = msgArray[2];
+                        e.user = user;
+                        returnValue(this, e);
+                    }
+                    else if (msgArray[2] == "changeFontSize")
+                    {
+                        e.changeFondSize = msgArray[3];
+                        e.user = user;
+                        e.nameOfInterface = msgArray[2];
+                        returnValue(this, e);
+                    }
+                    else if (msgArray[2] == "accessControl")
+                    {
+                        e.lockStatus = msgArray[3];
+                        e.username = msgArray[2];
+                        e.user=user;
+                        returnValue(this,e);
+                    }
                 }
                 else if (msgArray[0] == "returnGesture")
                 {
