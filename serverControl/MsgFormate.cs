@@ -23,7 +23,8 @@ namespace serverControl
             dropdownList,
             textbox,
             surfaceTextbox,
-            image
+            image,
+            dialog
         };
 
 
@@ -43,6 +44,7 @@ namespace serverControl
         private static String Textbox = "textbox;{0};{1};{2}/>";//textbox;tagID;caption;content 
         private static String SurfaceTextbox = "surfaceTextbox;{0};{1};{2}/>";//textbox;tagID;caption;content 
         private static String Image = "image;{0};{1};{2}/>";//image;tagID;caption;content 
+        private static String dialog = "dialog;{0};{1};{2}/>";//dialog;tagID;title;content 
 
 
         public String messageText { get; set; }
@@ -117,11 +119,20 @@ namespace serverControl
             return msg;
 
         }
-        public static MsgFormate newImage()
+        public static MsgFormate newImage(string LockStatus)
         {
             MsgFormate msg = new MsgFormate();
-            msg.messageText = Image;
+            msg.messageText =String.Format(Image,"",LockStatus,"");
             msg.messageType = MsgTpye.image;
+            return msg;
+
+        }
+
+        public static MsgFormate newDialog(String message, String title, String TagID)
+        {
+            MsgFormate msg = new MsgFormate();
+            msg.messageText = String.Format(dialog, TagID, title, message);
+            msg.messageType = MsgTpye.dialog;
             return msg;
 
         }

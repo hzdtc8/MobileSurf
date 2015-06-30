@@ -23,14 +23,31 @@
 
         
             <Grid x:Name="myControl" Visibility="Visible" Height="1180" Grid.RowSpan="3" Grid.ColumnSpan="4" Margin="0,0,6,0" Width="1914">
+                
                 <s:TagVisualizer Name="helloTag">
                     <s:TagVisualizer.Definitions>
-                        <s:TagVisualizationDefinition Value="05"
+                        <s:TagVisualizationDefinition 
+                            x:Name="Five"
+                            Value="05"
                      Source="ToolTips.xaml"
                      UsesTagOrientation="True"
                      TagRemovedBehavior="Fade"
                      PhysicalCenterOffsetFromTag="1,5"/>
+                        
                     </s:TagVisualizer.Definitions>
+                    
+                </s:TagVisualizer>
+                <s:TagVisualizer Name="helloTagSix">
+                    <s:TagVisualizer.Definitions>
+                        
+                        <s:TagVisualizationDefinition Value="06"
+                                                      x:Name="Six"
+                     Source="tipsForSix.xaml"
+                     UsesTagOrientation="True"
+                     TagRemovedBehavior="Fade"
+                     PhysicalCenterOffsetFromTag="1,5"/>
+                    </s:TagVisualizer.Definitions>
+
                 </s:TagVisualizer>
             </Grid>
   
@@ -61,7 +78,34 @@
             </StackPanel>
                 </Border>
         </Grid>
-        <Grid Grid.Column="2" Grid.Row="1">
+            
+                <Grid Grid.Column="2" Grid.Row="1" Visibility="Visible" Name="browser">
+                    <Border BorderBrush="#FFE5D517" BorderThickness="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
+                            <Image Width="40" Height="auto" Source="/serverTest;component/Images/back.png" TouchDown="Image_TouchDown"></Image>
+                            <Image Width="40" Height="auto" Source="/serverTest;component/Images/kuba_arrow_button_set_2.png" TouchDown="Image_TouchDown_1"></Image>
+                                <Label Content="         " HorizontalAlignment="Right" FontSize="20" />
+                            <Label Content="Address: " HorizontalAlignment="Right" FontSize="20" />
+                        </StackPanel>
+
+                        <s:SurfaceTextBox x:Name="txtinput" Background="Bisque" Grid.Row="0" Grid.Column="1" Text="http://www.theverge.com" Foreground="Black" FontSize="20" />
+                    <s:SurfaceButton x:Name="goTo" Click="goTo_Click" Grid.Row="0" Grid.Column="2" Content="go"/>
+                    <WebBrowser x:Name="webOutput" Grid.Row="1" Grid.ColumnSpan="3" Loaded="webOutput_Loaded"/>
+                        
+                </Grid>
+</Border>
+            </Grid>
+        <Grid Grid.Column="2" Grid.Row="1" Visibility="Hidden" Name="content">
                 
                     <Border BorderBrush="#FFE5D517" BorderThickness="2">
             <StackPanel>
@@ -96,17 +140,17 @@
                 </s:SurfaceTextBox>
             </StackPanel>
             </Border>
-            
-        </Grid>
+                
 
+            </Grid>
+            <StackPanel Orientation="Horizontal">
+                <s:SurfaceButton  Click="SurfaceButton_Click_browser" Width="79" Height="38" HorizontalAlignment="Left" Content="Browser" Margin="1,3,0,219"></s:SurfaceButton>
+                <s:SurfaceButton  Click="SurfaceButton_Click_content" Width="79" Height="38" HorizontalAlignment="Left" Content="content" Margin="1,3,0,219"></s:SurfaceButton>
+            </StackPanel>
+            
 
     </Grid>
-        <s:ScatterView Name="myScatter">
-            <s:ScatterViewItem Height="30" Width="200">
-                <s:SurfaceTextBox Name="myTextBox" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Stretch">asdasdaasddasdadasdasdadasdasdasdasdasdasdasasdasdasdasd</s:SurfaceTextBox>
-            </s:ScatterViewItem>
-            
-        </s:ScatterView>
+
         
     </Grid>
 

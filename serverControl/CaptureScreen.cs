@@ -13,7 +13,7 @@ using ScreenShotDemo;
 
 namespace serverControl
 {
-    class CaptureScreen
+   public class CaptureScreen
     {
         public Socket Interaction_Sending_Socket;
         public bool isCapture;

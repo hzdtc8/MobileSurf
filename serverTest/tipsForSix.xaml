@@ -1,0 +1,23 @@
+﻿<s:TagVisualization x:Class="serverTest.tipsForSix"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="http://schemas.microsoft.com/surface/2008"
+    Loaded="tipsForSix_Loaded">
+<Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Row="0" Grid.Column="0"  ToolTip="Scrach-out" Source="/serverTest;component/Images/curlicue.gif"></Image>
+        <TextBox Grid.Row="0" Grid.Column="1">Erase content</TextBox>
+        <Image Grid.Row="1" Grid.Column="0" ToolTip="cut" Source="/serverTest;component/Images/Scratch-out.gif"></Image>
+        <TextBox Grid.Row="1" Grid.Column="1">cut</TextBox>
+        <Image Grid.Row="2" Grid.Column="0" ToolTip="copy" Source="/serverTest;component/Images/doublecurlicue.gif"></Image>
+        <TextBox Grid.Row="2" Grid.Column="1">Copy</TextBox>
+    </Grid>
+</s:TagVisualization>

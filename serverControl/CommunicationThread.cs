@@ -147,7 +147,7 @@ namespace serverControl
                     else if (msgArray[2] == "accessControl")
                     {
                         e.lockStatus = msgArray[3];
-                        e.username = msgArray[2];
+                        e.nameOfInterface= msgArray[2];
                         e.user=user;
                         returnValue(this,e);
                     }
