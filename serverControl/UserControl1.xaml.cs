@@ -50,15 +50,6 @@ namespace serverControl
             IPEndPoint iepSendingImage = new IPEndPoint(local, 42342);// Ip end point for sending socket
             IPEndPoint iepSendPoint = new IPEndPoint(local, 33342);//ip end point for sending the point
             IPEndPoint iepSendMsg = new IPEndPoint(local, 22222);// IP end Point for sending pensonal message
-                
-            //create object of AcceptClient, pass the five ip end point to the constructor
-            //AcceptClient ac = new AcceptClient(iepCommand, iepReceivingMsgFromMobile, iepSendingImage, iepSendPoint, iepSendMsg);
-            
-            
-            //ac.UserListReturned+=new AcceptClient.myReturnUserListEventHandler(ac_UserListReturned);
-            
-            
-
 
             Thread accept = new Thread(
                            () =>
