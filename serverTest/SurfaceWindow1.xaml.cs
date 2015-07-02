@@ -266,7 +266,8 @@ namespace serverTest
                         serverControl.MsgFormate[] myMessage = {
                                 serverControl.MsgFormate.newSpeech("You Just lock the textbox only you can edit","Successful",e.user.UserID.ToString()),
                                 serverControl.MsgFormate.newVibrate(), 
-                                serverControl.MsgFormate.newSurfaceTextbox(),
+                               // serverControl.MsgFormate.newSurfaceTextbox(),
+                               serverControl.MsgFormate.newDialog("successfully the textbox","Warning",e.user.UserID.ToString()),
                                 serverControl.MsgFormate.newEnd()
 
                                                        };
@@ -306,7 +307,8 @@ namespace serverTest
                             serverControl.MsgFormate[] myMessage = {
                                     serverControl.MsgFormate.newSpeech("You Just unlock the textbox everyone can edit now ","Successful",e.user.UserID.ToString()),
                                     serverControl.MsgFormate.newVibrate(), 
-                                    serverControl.MsgFormate.newSurfaceTextbox(),
+                                    serverControl.MsgFormate.newDialog("Successfully unlock the textbox by "+userlist[0].UserID+" user","Warning",e.user.UserID.ToString()),
+                                    //serverControl.MsgFormate.newSurfaceTextbox(),
                                     serverControl.MsgFormate.newEnd()
 
                                                        };
@@ -345,6 +347,7 @@ namespace serverTest
                             serverControl.MsgFormate[] myMessage = {
                                     serverControl.MsgFormate.newSpeech("You cannot edit the text until tag "+userlist[0].UserID+" user unlock","Successful",e.user.UserID.ToString()),
                                     serverControl.MsgFormate.newVibrate(),
+
                                     serverControl.MsgFormate.newDialog("You cannot edit the text until tag"+userlist[0].UserID+" user unlock","Warning",e.user.UserID.ToString()),
                                     serverControl.MsgFormate.newEnd()
 
@@ -370,14 +373,7 @@ namespace serverTest
         {
 
 
-            //myScatter.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
-            //        new Action(
-            //            delegate()
-            //            {
-            //                myTextBox.Text = e.centent;
-            //                myScatter.Visibility = Visibility.Visible;
-            //            }
-            //    ));
+
             txtinput.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
                     new Action(
                         delegate()
@@ -440,7 +436,9 @@ namespace serverTest
             }
             else if (surfacetextBoxSelected)
             {
-                serverControl.MsgFormate[] myMessage = {
+                if (currentUserID == 0 || currentUserID == e.TagID)
+                {
+                    serverControl.MsgFormate[] myMessage = {
                         serverControl.MsgFormate.newSpeech("surface text box is selected","Successful",user.UserID.ToString()),
                         serverControl.MsgFormate.newVibrate(), 
                         serverControl.MsgFormate.newSurfaceTextbox(),
@@ -448,9 +446,24 @@ namespace serverTest
 
                                                        };
 
-                SendMsg sendMsgToMobile = new SendMsg();
-                string message = sendMsgToMobile.translateMessage(myMessage);
-                sendMsgToMobile.SendMsgToMobile(user.interaction_SendMsg_Socekt, message);
+                    SendMsg sendMsgToMobile = new SendMsg();
+                    string message = sendMsgToMobile.translateMessage(myMessage);
+                    sendMsgToMobile.SendMsgToMobile(user.interaction_SendMsg_Socekt, message);
+                }
+                else
+                {
+                    serverControl.MsgFormate[] myMessage = {
+                        serverControl.MsgFormate.newSpeech("you cannot edit this textbox until tag "+currentUserID+" unlock","failure",user.UserID.ToString()),
+                        serverControl.MsgFormate.newVibrate(), 
+                        serverControl.MsgFormate.newDialog("You cannot edit the text until tag"+userlist[0].UserID+" user unlock","Warning",e.user.UserID.ToString()),
+                        serverControl.MsgFormate.newEnd()
+
+                                                       };
+
+                    SendMsg sendMsgToMobile = new SendMsg();
+                    string message = sendMsgToMobile.translateMessage(myMessage);
+                    sendMsgToMobile.SendMsgToMobile(user.interaction_SendMsg_Socekt, message);
+                }
             }
             else if (paragraphSelected)
             {
@@ -516,7 +529,7 @@ namespace serverTest
             else if (textBoxAddressSelected && user.OnSurface)
             {
                 serverControl.MsgFormate[] myMessage = {
-                        serverControl.MsgFormate.newSpeech("login button clicked","Successful",user.UserID.ToString()),
+                        serverControl.MsgFormate.newSpeech("select your URI link","Successful",user.UserID.ToString()),
                         serverControl.MsgFormate.newVibrate(),
                         serverControl.MsgFormate.newDropdownList(),
                         serverControl.MsgFormate.newEnd()
@@ -526,30 +539,6 @@ namespace serverTest
                 SendMsg sendMsgToMobile = new SendMsg();
                 string message = sendMsgToMobile.translateMessage(myMessage);
                 sendMsgToMobile.SendMsgToMobile(user.interaction_SendMsg_Socekt, message);
-                //if (e.TagID == 5)
-                //{
-                //    helloTag.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
-                //        new Action(
-                //            delegate()
-                //            {
-                //                helloTag.Visibility = Visibility.Visible;
-                //            }
-                //    ));
-                //}
-                //else if (e.TagID == 6)
-                //{
-                //    helloTagSix.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
-                //       new Action(
-                //           delegate()
-                //           {
-                //               helloTagSix.Visibility = Visibility.Visible;
-                //           }
-                //   ));
-                //}
-
-
-
-
 
             }
             else

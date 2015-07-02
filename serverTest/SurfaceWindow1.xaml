@@ -51,7 +51,7 @@
                 </s:TagVisualizer>
             </Grid>
   
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1" >
 
                 <Border BorderBrush="#FFE5D517" BorderThickness="2">
             <StackPanel>
@@ -100,7 +100,7 @@
 
                         <s:SurfaceTextBox x:Name="txtinput" Background="Bisque" Grid.Row="0" Grid.Column="1" Text="http://www.theverge.com" Foreground="Black" FontSize="20" />
                     <s:SurfaceButton x:Name="goTo" Click="goTo_Click" Grid.Row="0" Grid.Column="2" Content="go"/>
-                    <WebBrowser x:Name="webOutput" Grid.Row="1" Grid.ColumnSpan="3" Loaded="webOutput_Loaded"/>
+                    <WebBrowser  x:Name="webOutput" Grid.Row="1" Grid.ColumnSpan="3" Loaded="webOutput_Loaded"/>
                         
                 </Grid>
 </Border>
