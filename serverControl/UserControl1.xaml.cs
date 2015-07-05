@@ -125,10 +125,10 @@ namespace serverControl
 
 
                 }
-                else
-                {
-                    user.IsCapture = false;
-                }
+                //else
+                //{
+                //    user.IsCapture = false;
+                //}
             }
         }
 
