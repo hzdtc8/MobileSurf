@@ -124,10 +124,7 @@
     <Resource Include="Images\back.png" />
     <Resource Include="Images\kuba_arrow_button_set_clip_art_9051.jpg" />
     <Resource Include="Images\kuba_arrow_button_set_2.png" />
-    <Resource Include="Images\Original.png" />
-    <Resource Include="Images\MarketPlace_Grille.png" />
-    <Resource Include="Images\surface.png" />
-    <Resource Include="Images\Original1.png" />
+    <Resource Include="Images\surface1.png" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

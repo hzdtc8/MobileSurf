@@ -6,8 +6,8 @@
     Title="serverTest" Loaded="SurfaceWindow_Loaded">
     <Grid>
 
-        <Image Source="/serverTest;component/Images/surface.png"></Image>
-            <Grid Background="#FF1F2790" Visibility="Hidden">
+
+            <Grid Background="#FF1F2790" >
         
             <Grid.ColumnDefinitions>
             <ColumnDefinition Width="430"></ColumnDefinition>
