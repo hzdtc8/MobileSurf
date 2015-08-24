@@ -32,7 +32,7 @@
                      Source="ToolTips.xaml"
                      UsesTagOrientation="True"
                      TagRemovedBehavior="Fade"
-                     PhysicalCenterOffsetFromTag="1,5"/>
+                     PhysicalCenterOffsetFromTag="6,0.5"/>
                         
                     </s:TagVisualizer.Definitions>
                     
@@ -45,7 +45,7 @@
                      Source="tipsForSix.xaml"
                      UsesTagOrientation="True"
                      TagRemovedBehavior="Fade"
-                     PhysicalCenterOffsetFromTag="1,5"/>
+                     PhysicalCenterOffsetFromTag="6,0.5"/>
                     </s:TagVisualizer.Definitions>
 
                 </s:TagVisualizer>
@@ -69,13 +69,21 @@
                 </StackPanel>
                     </Border>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                    <Label Width="320"></Label>
+                    <Label Width="400"></Label>
                     <s:SurfaceButton Name="login" Content="Login" ></s:SurfaceButton>
-                    <s:SurfaceButton Name="forgot"  Content="Forgot Psw"></s:SurfaceButton>
+
                     </StackPanel>
+                        <Border BorderThickness="1" BorderBrush="Black">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label Foreground="White" FontSize="15"> Forgot your Password?</Label>
+                            <Label Foreground="White" FontSize="15">
+                                <TextBlock TextDecorations="Underline">Get password help.</TextBlock>
+                            </Label>
+                        </StackPanel>
+                            </Border>
+                            
 
-
-            </StackPanel>
+                    </StackPanel>
                 </Border>
         </Grid>
             

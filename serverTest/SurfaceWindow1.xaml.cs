@@ -52,6 +52,14 @@ namespace serverTest
         Point passwordTopLeftToScreen, passwordBottomRightToScreen;
         public double passwordTofet, passwordToTop;
 
+        //
+        Point UsernameTopLeftToScreen;
+        Point UsernameBottomRightToScreen;
+        double UsernameTofet;
+        double UsernameWidth ;
+        double UsernameHeight ;
+        double UsernameToTop;
+        //
 
 
         double loginWidth, loginHeight, forgetWidth, forgetHeight;
@@ -404,16 +412,19 @@ namespace serverTest
             double[] MobilePoint = new double[2];
             ConvertIntoPhysicalDistance convertors = new ConvertIntoPhysicalDistance();
             MobilePoint = trim.trimToDouble(trim.trim(e.Coordinate));
-            double mobilePointX = MobilePoint[0];
-            double mobilePointY = MobilePoint[1];
-            double tabletopPointX = e.CoordinateOfTabletopPointX;
-            double tabletopPointY = e.CoordinateOfTabletopPointY;
+            double mobilePointX = MobilePoint[0]; // sent from mobile coodinate X
+            double mobilePointY = MobilePoint[1];// coodinate Y
+            double tabletopPointX = e.CoordinateOfTabletopPointX;// X coordinate of tag 
+            double tabletopPointY = e.CoordinateOfTabletopPointY;// Y coordinate of tag
+
+            // convert mobile point and tabletop point into phsical distance
             double tabletopPointXPhysical = convertors.ConvertDistanceFromPixel(tabletopPointX);
             double tabletopPointYPhysical = convertors.ConvertDistanceFromPixel(tabletopPointY);
             double mobilePointXPhysical = convertors.ConvertDistanceFromPixelInMobile(mobilePointX);
             double mobilePointYPhysical = convertors.ConvertDistanceFromPixelInMobile(mobilePointY);
             User user = e.user;
             //bool ObjectSelectedOnAutoFill
+            bool usernameSelected = compare.compareWith(UsernameTofet, UsernameToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, UsernameWidth, UsernameHeight);
             bool textBoxAddressSelected = compare.compareWith(TextBoxAddressTofet, TextBoxAddressToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, TextBoxAddressWidth, TextBoxAddressHeight);
             bool surfacetextBoxSelected = compare.compareWith(surfaceTextBoxTofet, surfaceTextBoxToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, surfaceTextBoxWidth, surfaceTextBoxHeight);
             bool LockStatusSelected = compare.compareWith(lockStatusImageTofet, lockStatusImageToTop, tabletopPointXPhysical, tabletopPointYPhysical, mobilePointXPhysical, mobilePointYPhysical, lockStatusImageWidth, lockStatusImageHeight);
@@ -429,6 +440,20 @@ namespace serverTest
                         serverControl.MsgFormate.newEnd()
 
                                                        };
+
+                SendMsg sendMsgToMobile = new SendMsg();
+                string message = sendMsgToMobile.translateMessage(myMessage);
+                sendMsgToMobile.SendMsgToMobile(user.interaction_SendMsg_Socekt, message);
+            }
+            else if (usernameSelected)
+            {
+                serverControl.MsgFormate[] myMessage = {
+                        serverControl.MsgFormate.newSpeech("username field selected","Successful",user.UserID.ToString()),
+                        serverControl.MsgFormate.newVibrate(), 
+                        serverControl.MsgFormate.newEditText(),
+                        serverControl.MsgFormate.newEnd()
+
+                };
 
                 SendMsg sendMsgToMobile = new SendMsg();
                 string message = sendMsgToMobile.translateMessage(myMessage);
@@ -659,6 +684,15 @@ namespace serverTest
             var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
 
             Debug.WriteLine("{0},{1}", desktopWorkingArea.BottomRight.X, desktopWorkingArea.BottomRight.Y);
+
+            UsernameTopLeftToScreen= tbUsername.PointToScreen(desktopWorkingArea.TopLeft);
+            UsernameBottomRightToScreen = login.PointFromScreen(desktopWorkingArea.BottomRight);
+            UsernameTofet = convertor.ConvertDistanceFromPointX(UsernameTopLeftToScreen);
+            UsernameWidth = convertor.ConvertDistanceFromPixel(tbUsername.ActualWidth);
+            UsernameHeight = convertor.ConvertDistanceFromPixel(tbUsername.ActualHeight);
+            UsernameToTop = convertor.ConvertDistanceFromPointY(UsernameTopLeftToScreen, UsernameHeight);
+            Debug.WriteLine("Username: To Left={0}, To top={1}", UsernameTofet, convertor.ConvertDistanceFromPointY(UsernameBottomRightToScreen, tbUsername.ActualHeight));
+            Debug.WriteLine("Username: To right={0}, to bottom={1}", convertor.ConvertDistanceFromPointXButtomRight(UsernameBottomRightToScreen, tbUsername.ActualWidth), convertor.ConvertDistanceFromPointYButtomRight(UsernameBottomRightToScreen, tbUsername.ActualHeight));
 
             LoginButtonTopLeftToScreen = login.PointToScreen(desktopWorkingArea.TopLeft);
             LoginButtonBottomRightToScreen = login.PointFromScreen(desktopWorkingArea.BottomRight);
