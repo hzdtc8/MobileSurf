@@ -33,7 +33,7 @@ namespace serverControl
        
         CaptureScreen cs;
         public AcceptClient ac;
-        List<User> userList = new List<User>();
+        public List<User> userList = new List<User>();
 
 
         public UserControl1()
@@ -50,18 +50,17 @@ namespace serverControl
             IPEndPoint iepSendingImage = new IPEndPoint(local, 42342);// Ip end point for sending socket
             IPEndPoint iepSendPoint = new IPEndPoint(local, 33342);//ip end point for sending the point
             IPEndPoint iepSendMsg = new IPEndPoint(local, 22222);// IP end Point for sending pensonal message
-                
-            //create object of AcceptClient, pass the five ip end point to the constructor
-            //AcceptClient ac = new AcceptClient(iepCommand, iepReceivingMsgFromMobile, iepSendingImage, iepSendPoint, iepSendMsg);
-           
-            
-
 
             Thread accept = new Thread(
                            () =>
                            {
-                               userList=ac.accept(iepCommand, iepReceivingMsgFromMobile, iepSendingImage, iepSendPoint, iepSendMsg);
-                                
+                               //ac = new AcceptClient();
+                               //ac.accept(iepCommand, iepReceivingMsgFromMobile, iepSendingImage, iepSendPoint, iepSendMsg);
+                               foreach (List<User> userlistTemp in ac.accept(iepCommand, iepReceivingMsgFromMobile, iepSendingImage, iepSendPoint, iepSendMsg))
+                               {
+                                   userList = userlistTemp;
+                               }
+                              // userList = ac.UserList;
                                
                            }
 
@@ -72,6 +71,11 @@ namespace serverControl
             this.Loaded += UserControl1_Loaded;
             
 
+        }
+
+        public void ac_UserListReturned(object sender,userListEventArgs e)
+        {
+            userList = e.UserList;
         }
 
         void UserControl1_Loaded(object sender, RoutedEventArgs e)
@@ -137,7 +141,7 @@ namespace serverControl
             
             if (isTag)
             {
-
+                
 
                 foreach (User user in userList)
                     {

@@ -13,11 +13,10 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Image Grid.Row="0" Grid.Column="0"  ToolTip="Scrach-out" Source="/serverTest;component/Images/Scratch-out.gif"></Image>
-        <TextBox Grid.Row="0" Grid.Column="1">Erase content</TextBox>
-        <Image Grid.Row="1" Grid.Column="0" ToolTip="cut" Source="/serverTest;component/Images/doublecurlicue.gif"></Image>
-        <TextBox Grid.Row="1" Grid.Column="1">cut</TextBox>
-        <Image Grid.Row="2" Grid.Column="0" ToolTip="copy" Source="/serverTest;component/Images/curlicue.gif"></Image>
-        <TextBox Grid.Row="2" Grid.Column="1">Copy</TextBox>
+        <Image Grid.Row="0" Grid.Column="0" Width="80" ToolTip="Scrach-out" Source="/serverTest;component/Images/groww.jpg"></Image>
+        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Grow Font</TextBox>
+        <Image Grid.Row="1" Grid.Column="0" Width="80" ToolTip="cut" Source="/serverTest;component/Images/shrinkk.jpg"></Image>
+        <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">Shrink Font</TextBox>
+
     </Grid>
 </s:TagVisualization>

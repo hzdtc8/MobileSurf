@@ -15,11 +15,16 @@ namespace serverControl
         User user;
         double x, y;
         public delegate void myObjectClickedEventHandler(object sender, objectClickedEventArgs e);
-        //public delegate void myReturnValueEventHandler(object sender, returnValueEventArgs e);
-        //public delegate void myReturnGestureEventHandler(object sender, returnGestureEventArgs e);
+        public delegate void myItemSelectedEventHandler(object sender,  itemSelectedEventArgs e);
+
+
+
+        public delegate void myReturnValueEventHandler(object sender, returnValueEventArgs e);
+        public delegate void myReturnGestureEventHandler(object sender, returnGestureEventArgs e);
         public event myObjectClickedEventHandler objectClicked;
-        //public event myReturnValueEventHandler returnValue;
-        //public event myReturnGestureEventHandler returnGesture;
+        public event myItemSelectedEventHandler ItemSelected;
+        public event myReturnValueEventHandler returnValue;
+        public event myReturnGestureEventHandler returnGesture;
 
 
         //Defaut constructor
@@ -65,6 +70,14 @@ namespace serverControl
         public string[] trim(string msg)
         {
 
+            string[] Msg = msg.Split(';');
+
+            return Msg;
+
+        }
+        public string[] trimSpace(string msg)
+        {
+
             string[] Msg = msg.Split(' ');
 
             return Msg;
@@ -82,18 +95,20 @@ namespace serverControl
             Debug.WriteLine("In the receive method");
             byte[] bytes = new byte[1024];
 
+
             while ((i = user.interation_Receiving_Socket.Receive(bytes)) != 0)
             {
                 data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                 Debug.WriteLine("object select from the userID {0}: {1}", user.UserID, data);
                 string[] msgArray = new string[3];
                 msgArray=trim(data);
-                if (msgArray[0] == "objectClicked")
+
+                if (msgArray[0] == "objectClick")
                 {
                     objectClickedEventArgs e = new objectClickedEventArgs();
                     //pass the tagID,Coordinate,last point, user into event args
                     e.TagID = Convert.ToInt32( msgArray[1]);
-                    e.Coordinate = msgArray[2]+" "+msgArray[3];
+                    e.Coordinate = msgArray[3];//tabletop coordinate
                     e.CoordinateOfTabletopPointX = user.pointX;
                     e.CoordinateOfTabletopPointY = user.pointY;
                     e.user = user;
@@ -104,17 +119,69 @@ namespace serverControl
                    // user.surfaceObjectSelected = true;
                    
                 }
-                if (msgArray[0] == "returnValue")
+                else if (msgArray[0] == "returnValue")
                 {
                     returnValueEventArgs e = new returnValueEventArgs();
-                    //returnValue(this, e);
+                    if (msgArray[2] == "changeFontColor")
+                    {
+                        e.color = msgArray[3];
+                        e.user = user;
+                        e.nameOfInterface = msgArray[2];
+                        returnValue(this,e);
+                    }
+                    else if (msgArray[2] == "login form")
+                    {
+                        e.password = msgArray[4];
+                        e.username = msgArray[3];
+                        e.nameOfInterface = msgArray[2];
+                        e.user = user;
+                        returnValue(this, e);
+                    }
+                    else if (msgArray[2] == "changeFontSize")
+                    {
+                        e.changeFondSize = msgArray[3];
+                        e.user = user;
+                        e.nameOfInterface = msgArray[2];
+                        returnValue(this, e);
+                    }
+                    else if (msgArray[2] == "accessControl")
+                    {
+                        e.lockStatus = msgArray[3];
+                        e.nameOfInterface= msgArray[2];
+                        e.user=user;
+                        returnValue(this,e);
+                    }
                 }
-                if (msgArray[0] == "returnGesture")
+                else if (msgArray[0] == "returnGesture")
                 {
                     returnGestureEventArgs e = new returnGestureEventArgs();
                    // returnGesture(this, e);
                 }
+                else if (msgArray[0] == "itemSelect")
+                {
+                    itemSelectedEventArgs e = new itemSelectedEventArgs();
+                    e.TagID = Convert.ToInt32(msgArray[1]);
+                    e.centent = msgArray[3];
+                    e.caption = msgArray[2];
+                    e.user = user;
 
+                    if (ItemSelected != null)
+                    {
+                        ItemSelected(this, e);
+                    }
+                    
+                 
+                }
+                else if (msgArray[0] == "paragraphSelect")
+                {
+                    paragraphSelectedEventArgs e = new paragraphSelectedEventArgs();
+                    //pass the tagID,Coordinate,last point, user into event args
+                    e.TagID = Convert.ToInt32(msgArray[1]);
+                    e.Coordinate = msgArray[3];//tabletop coordinate
+                    e.CoordinateOfTabletopPointX = user.pointX;
+                    e.CoordinateOfTabletopPointY = user.pointY;
+                    e.user = user;
+                }
 
             }
 

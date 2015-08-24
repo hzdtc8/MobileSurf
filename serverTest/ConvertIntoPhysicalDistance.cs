@@ -14,6 +14,10 @@ namespace serverTest
         {
             return ConvertDistanceFromPixel(PixelDistance.X);
         }
+        public double ConvertDistanceFromPointYBox(Point PixelDistance)
+        {
+            return ConvertDistanceFromPixel(PixelDistance.Y);
+        }
 
 
         //convert (pixel)PointY into (cm)PointY

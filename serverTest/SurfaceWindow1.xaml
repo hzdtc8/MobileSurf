@@ -7,7 +7,7 @@
     <Grid>
 
 
-        <Grid Background="#FF1F2790">
+            <Grid Background="#FF1F2790" >
         
             <Grid.ColumnDefinitions>
             <ColumnDefinition Width="430"></ColumnDefinition>
@@ -23,18 +23,35 @@
 
         
             <Grid x:Name="myControl" Visibility="Visible" Height="1180" Grid.RowSpan="3" Grid.ColumnSpan="4" Margin="0,0,6,0" Width="1914">
+                
                 <s:TagVisualizer Name="helloTag">
                     <s:TagVisualizer.Definitions>
-                        <s:TagVisualizationDefinition Value="05"
+                        <s:TagVisualizationDefinition 
+                            x:Name="Five"
+                            Value="05"
                      Source="ToolTips.xaml"
                      UsesTagOrientation="True"
                      TagRemovedBehavior="Fade"
-                     PhysicalCenterOffsetFromTag="1,5"/>
+                     PhysicalCenterOffsetFromTag="6,0.5"/>
+                        
                     </s:TagVisualizer.Definitions>
+                    
+                </s:TagVisualizer>
+                <s:TagVisualizer Name="helloTagSix">
+                    <s:TagVisualizer.Definitions>
+                        
+                        <s:TagVisualizationDefinition Value="06"
+                                                      x:Name="Six"
+                     Source="tipsForSix.xaml"
+                     UsesTagOrientation="True"
+                     TagRemovedBehavior="Fade"
+                     PhysicalCenterOffsetFromTag="6,0.5"/>
+                    </s:TagVisualizer.Definitions>
+
                 </s:TagVisualizer>
             </Grid>
   
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1" >
 
                 <Border BorderBrush="#FFE5D517" BorderThickness="2">
             <StackPanel>
@@ -42,40 +59,80 @@
                     <Border BorderThickness="1" BorderBrush="Black">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                     <Label Content="Username"></Label>
-                    <s:SurfaceTextBox Width="360"></s:SurfaceTextBox>
+                    <s:SurfaceTextBox Name="tbUsername" Width="360"></s:SurfaceTextBox>
                 </StackPanel>
                     </Border >
                     <Border BorderThickness="1" BorderBrush="Black">
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                     <Label Content="Password "></Label>
-                    <s:SurfacePasswordBox Width="360"></s:SurfacePasswordBox>
+                    <s:SurfacePasswordBox Name="tbPassword" Width="360"></s:SurfacePasswordBox>
                 </StackPanel>
                     </Border>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                    <Label Width="320"></Label>
+                    <Label Width="400"></Label>
                     <s:SurfaceButton Name="login" Content="Login" ></s:SurfaceButton>
-                    <s:SurfaceButton Name="forgot"  Content="Forgot Psw"></s:SurfaceButton>
+
                     </StackPanel>
+                        <Border BorderThickness="1" BorderBrush="Black">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label Foreground="White" FontSize="15"> Forgot your Password?</Label>
+                            <Label Foreground="White" FontSize="15">
+                                <TextBlock TextDecorations="Underline">Get password help.</TextBlock>
+                            </Label>
+                        </StackPanel>
+                            </Border>
+                            
 
-
-            </StackPanel>
+                    </StackPanel>
                 </Border>
         </Grid>
-        <Grid Grid.Column="2" Grid.Row="1">
+            
+                <Grid Grid.Column="2" Grid.Row="1" Visibility="Visible" Name="browser">
+                    <Border BorderBrush="#FFE5D517" BorderThickness="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
+                            <Image Width="40" Height="auto" Source="/serverTest;component/Images/back.png" TouchDown="Image_TouchDown"></Image>
+                            <Image Width="40" Height="auto" Source="/serverTest;component/Images/kuba_arrow_button_set_2.png" TouchDown="Image_TouchDown_1"></Image>
+                                <Label Content="         " HorizontalAlignment="Right" FontSize="20" />
+                            <Label Content="Address: " HorizontalAlignment="Right" FontSize="20" />
+                        </StackPanel>
+
+                        <s:SurfaceTextBox x:Name="txtinput" Background="Bisque" Grid.Row="0" Grid.Column="1" Text="http://www.theverge.com" Foreground="Black" FontSize="20" />
+                    <s:SurfaceButton x:Name="goTo" Click="goTo_Click" Grid.Row="0" Grid.Column="2" Content="go"/>
+                    <WebBrowser  x:Name="webOutput" Grid.Row="1" Grid.ColumnSpan="3" Loaded="webOutput_Loaded"/>
+                        
+                </Grid>
+</Border>
+            </Grid>
+        <Grid Grid.Column="2" Grid.Row="1" Visibility="Hidden" Name="content">
                 
                     <Border BorderBrush="#FFE5D517" BorderThickness="2">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Background="White">
-                </StackPanel>
-                <TextBlock Text="The Gurdian Life Insurance Company" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold"></TextBlock>
-                <s:SurfaceTextBox                     
+                            
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="The Gurdian Life Insurance Company" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold">
+</TextBlock>
+                            <Image Name="tbLockStatusImage" Source="/serverTest;component/Images/Lock-Lock-icon.png" Width="72" Height="63"></Image>
+                        </StackPanel>
+                <s:SurfaceTextBox 
+                    Name="tbSurfaceTextBox"
                         HorizontalAlignment="Left" 
                         TextWrapping="Wrap" 
                         VerticalAlignment="Top"                   
                         Text="The Gurdian Life Insurance Company offers financial products and services. Among its products include life insurance, disability insurance, retirement programs, and health plans which have HMO, PPO, and dental and vision plans." 
-                    Padding="10" TextAlignment="Justify" IsReadOnly="True" Focusable="False" 
-                    IsTabStop="False" IsUndoEnabled="True" AllowDrop="False" Background="#FF173400" Foreground="White">
-                </s:SurfaceTextBox>
+                    Padding="10" TextAlignment="Justify" IsReadOnly="True" Focusable="False" FontSize="13"
+                    IsTabStop="False" IsUndoEnabled="True" AllowDrop="False" Background="#FF173400" Foreground="WhiteSmoke"></s:SurfaceTextBox>
 
                 <TextBlock Text="Mission Statement" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"></TextBlock>
                 <s:SurfaceTextBox 
@@ -85,17 +142,23 @@
                         Name="tbTestBox" 
                         VerticalAlignment="Top"
                          Text="Our purpose is to enrich the lives of people we touch. By providing highest performing financial products and services that reduce risk and increase assets, we help individuals and employers fulfill their responsibilities and build better tomorrows. Our culture is based on an unwavering belief in integrity and fair dealings, treating our clients and each other with dignity and respect... We take prudent risks and work together to assure our success and profitability in the future... We work hard to enhance continuously our reputation for accessibility, professionalism, performance, and the depth and quality of our long-term consultative relationships with clients... We endeavor to be valued as an industry leader in client satisfaction, sales growth, product performance, financial strength and profitability."
-                        Padding="10" 
+                        Padding="10" FontSize="13"
                         TextAlignment="Justify" 
                         IsReadOnly="True" Background="#FF071400" Foreground="White">
                 </s:SurfaceTextBox>
             </StackPanel>
             </Border>
-            
-        </Grid>
+                
 
+            </Grid>
+            <StackPanel Orientation="Horizontal">
+                <s:SurfaceButton  Click="SurfaceButton_Click_browser" Width="79" Height="38" HorizontalAlignment="Left" Content="Browser" Margin="1,3,0,219"></s:SurfaceButton>
+                <s:SurfaceButton  Click="SurfaceButton_Click_content" Width="79" Height="38" HorizontalAlignment="Left" Content="content" Margin="1,3,0,219"></s:SurfaceButton>
+            </StackPanel>
+            
 
     </Grid>
+
         
     </Grid>
 

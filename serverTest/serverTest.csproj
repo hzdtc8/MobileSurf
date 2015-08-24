@@ -58,6 +58,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Comparison.cs" />
+    <Compile Include="tipsForSix.xaml.cs">
+      <DependentUpon>tipsForSix.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ToolTips.xaml.cs">
       <DependentUpon>ToolTips.xaml</DependentUpon>
     </Compile>
@@ -75,6 +78,10 @@
       <DependentUpon>SurfaceWindow1.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="tipsForSix.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ToolTips.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -110,6 +117,18 @@
     <Resource Include="Images\Scratch-out.gif" />
     <Resource Include="Images\doublecurlicue.gif" />
     <Resource Include="Images\curlicue.gif" />
+    <Resource Include="Images\lock-unlocked-circle-512.png" />
+    <Resource Include="Images\No-DRM_lock_svg.png" />
+    <Resource Include="Images\Lock-Lock-icon.png" />
+    <Resource Include="Images\Lock-Unlock-icon.png" />
+    <Resource Include="Images\back.png" />
+    <Resource Include="Images\kuba_arrow_button_set_clip_art_9051.jpg" />
+    <Resource Include="Images\kuba_arrow_button_set_2.png" />
+    <Resource Include="Images\surface1.png" />
+    <Resource Include="Images\grow.jpg" />
+    <Resource Include="Images\shrink.jpg" />
+    <Resource Include="Images\groww.jpg" />
+    <Resource Include="Images\shrinkk.jpg" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

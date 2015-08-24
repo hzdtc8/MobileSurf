@@ -57,6 +57,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="userListEventArgs.cs" />
     <Page Include="UserControl1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -64,9 +65,11 @@
     <Compile Include="AcceptClient.cs" />
     <Compile Include="CaptureScreen.cs" />
     <Compile Include="CommunicationThread.cs" />
+    <Compile Include="itemSelectedEventArgs.cs" />
     <Compile Include="Mode.cs" />
     <Compile Include="MsgFormate.cs" />
     <Compile Include="objectClickedEventArgs.cs" />
+    <Compile Include="paragraphSelectedEventArgs.cs" />
     <Compile Include="PrivateModeHeader.cs" />
     <Compile Include="returnGestureEventArgs.cs" />
     <Compile Include="returnValueEventArgs.cs" />

@@ -7,7 +7,14 @@ namespace serverControl
 {
     public class returnValueEventArgs
     {
-        public string Coordinate;
+        
         public int TagID;
+        public string password;
+        public string username;
+        public string changeFondSize;
+        public string color;
+        public string nameOfInterface;
+        public string lockStatus;
+        public User user;
     }
 }
